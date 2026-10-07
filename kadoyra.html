@@ -13,6 +13,7 @@
             --gold-light: #f3e5ab;
             --text-white: #ffffff;
             --text-gray: #b0b0b0;
+            --whatsapp: #25d366;
         }
 
         * {
@@ -26,7 +27,7 @@
             background-color: var(--bg-black);
             color: var(--text-white);
             line-height: 1.6;
-            padding-bottom: 80px;
+            padding-bottom: 90px;
         }
 
         header {
@@ -168,22 +169,24 @@
             background: var(--gold-light);
         }
 
-        /* سلة المشتريات العائمة */
+        /* سلة المشتريات العائمة للواتساب */
         .cart-float {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            background: var(--gold);
-            color: var(--bg-black);
+            background: var(--whatsapp);
+            color: #ffffff;
             padding: 12px 25px;
             border-radius: 50px;
             font-weight: 900;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
             cursor: pointer;
             z-index: 1001;
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -216,17 +219,17 @@
                         <div class="item-desc">2 بيتزا كبير + 1 صواريخ مشكل + لتر كوكاكولا هدية.</div>
                         <div class="item-footer">
                             <span class="item-price">350 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart('عرض العائلة الصاروخي', 350)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
                 <div class="item-card">
                     <div class="item-info">
-                        <div class="item-title">عرض البيتزا المزدوج</div>
-                        <div class="item-desc">اشتري أي 2 بيتزا وسط واحصل على الثالثة مجاناً.</div>
+                        <div class="item-title">عرض اشتري 2 بيتزا</div>
+                        <div class="item-desc">اشترى اى ٢ بيتزا كبير و احصل على بيتزا سوسيس وسط هديه.</div>
                         <div class="item-footer">
-                            <span class="item-price">260 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <span class="item-price">280 جـ</span>
+                            <button class="add-btn" onclick="addToCart('عرض اشتري 2 بيتزا', 280)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -243,7 +246,7 @@
                         <div class="item-desc">خبز فرنسي طويل محشي شاورما دجاج، موتزاريلا، وصوص خاص.</div>
                         <div class="item-footer">
                             <span class="item-price">95 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart('صاروخ شاورما دجاج مكسيكي', 95)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -253,7 +256,7 @@
                         <div class="item-desc">قطع دجاج كرسبي حارة، صوص الشيدر، وطماطم وخس مقرمش.</div>
                         <div class="item-footer">
                             <span class="item-price">105 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart('صاروخ زنگر حار', 105)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -270,7 +273,7 @@
                         <div class="item-desc">صوص طماطم، جبن موتزاريلا، وشرائح بيبروني ممتازة.</div>
                         <div class="item-footer">
                             <span class="item-price">120 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart('بيتزا بيبروني وسط', 120)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -280,7 +283,7 @@
                         <div class="item-desc">موتزاريلا، رومي، شيدر، وجبن بلو تشيز فاخر.</div>
                         <div class="item-footer">
                             <span class="item-price">130 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart('بيتزا رويال مشكل جبن', 130)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -297,7 +300,7 @@
                         <div class="item-desc">بسطرمة، سوسيس، مفروم، وموتزاريلا مع طبقات عجينة مورقة.</div>
                         <div class="item-footer">
                             <span class="item-price">140 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart('فطيرة شرقي مشكل لحوم', 140)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -314,7 +317,7 @@
                         <div class="item-desc">قطع لحم طري محمرة بالبصل المقمل والتوابل الشرقية في الفرن.</div>
                         <div class="item-footer">
                             <span class="item-price">160 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart('طاجن لحمة بصل', 160)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -331,7 +334,7 @@
                         <div class="item-desc">أرز، مكرونة، عدس، حمص، بصل مقرمش، مع الصلصة والدقة والشطة.</div>
                         <div class="item-footer">
                             <span class="item-price">45 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart('كشري قدورة الملكي', 45)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -348,7 +351,7 @@
                         <div class="item-desc">أصابع استربس مقرمشة، صوص رانش، وموتزاريلا سايحة.</div>
                         <div class="item-footer">
                             <span class="item-price">85 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart('كريب استربس دجاج', 85)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -365,7 +368,7 @@
                         <div class="item-desc">علبة باردة ومنعشة.</div>
                         <div class="item-footer">
                             <span class="item-price">15 جـ</span>
-                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart('كنز كوكاكولا / برتقال', 15)">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -374,13 +377,15 @@
 
     </div>
 
-    <!-- السلة العائمة -->
-    <div class="cart-float" onclick="alert('سلة المشتريات جاهزة لاستقبال طلبات العملاء!')">
-        🛒 سلة المشتريات (<span id="cart-count">0</span>)
-    </div>
+    <!-- زر السلة والواتساب العائم -->
+    <a href="#" id="whatsapp-cart" class="cart-float" onclick="sendOrderToWhatsApp(event)">
+        💬 اطلب عبر الواتساب (<span id="cart-count">0</span>)
+    </a>
 
     <script>
-        // دالة تبديل الأقسام
+        let cart = [];
+
+        // تبديل الأقسام
         function switchCategory(sectionId, btnElement) {
             const sections = document.querySelectorAll('.menu-section');
             sections.forEach(sec => sec.classList.remove('active'));
@@ -392,13 +397,15 @@
             btnElement.classList.add('active');
         }
 
-        // دالة إضافة منتج للسلة
-        let cartItemsCount = 0;
-        function addToCart() {
-            cartItemsCount++;
-            document.getElementById('cart-count').innerText = cartItemsCount;
+        // إضافة للسلة
+        function addToCart(itemName, itemPrice) {
+            cart.push({ name: itemName, price: itemPrice });
+            document.getElementById('cart-count').innerText = cart.length;
+            alert('تمت إضافة "' + itemName + '" إلى السلة بنجاح!');
         }
-    </script>
 
-</body>
-</html>
+        // إرسال الأوردر للواتساب
+        function sendOrderToWhatsApp(event) {
+            event.preventDefault();
+            if (cart.length === 0) {
+                alert('سلة المشتريات فارغة! اختر بعض الأصناف أول

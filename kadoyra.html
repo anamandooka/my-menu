@@ -3,310 +3,641 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>قدورة | اطلب أكلتك</title>
-<meta name="description" content="مطعم قدورة - اطلب أكلتك المفضلة بسهولة">
+<title>مطعم قدورة | أكل قدورة دايمًا قدورة</title>
+<meta name="description" content="مطعم قدورة - كشرى، بيتزا، كريب، طواجن، فطاير، صواريخ، مشروبات وعروض.">
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#faf7f2;color:#222}
-:root{--main:#b51f24;--dark:#171717;--gold:#e8a52b;--light:#fff;--muted:#777}
-header{position:sticky;top:0;z-index:50;background:#171717;color:#fff;box-shadow:0 2px 12px #0002}
-.top{max-width:1200px;margin:auto;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}
-.logo{font-size:28px;font-weight:900;color:#fff}.logo span{color:var(--gold)}
-.cart-btn{border:0;background:var(--main);color:#fff;padding:11px 17px;border-radius:12px;font-weight:bold;cursor:pointer}
-#cartCount{background:#fff;color:var(--main);padding:2px 7px;border-radius:20px;margin-right:5px}
-.hero{background:linear-gradient(135deg,#171717,#3a1113);color:#fff;text-align:center;padding:50px 20px}
-.hero h1{font-size:42px;margin:0 0 10px}.hero p{font-size:18px;color:#ddd;margin:0}
-.search{max-width:650px;margin:25px auto 0;display:flex}.search input{width:100%;padding:15px;border-radius:12px;border:0;font-size:16px}
-.categories{max-width:1200px;margin:20px auto;padding:0 15px;display:flex;gap:10px;overflow:auto}
-.cat{white-space:nowrap;border:1px solid #ddd;background:#fff;padding:11px 17px;border-radius:25px;cursor:pointer;font-weight:bold}.cat.active,.cat:hover{background:var(--main);color:#fff;border-color:var(--main)}
-main{max-width:1200px;margin:auto;padding:10px 15px 100px}.section-title{display:flex;align-items:center;justify-content:space-between;margin:30px 0 15px}.section-title h2{margin:0;font-size:25px}.section-title small{color:var(--muted)}
-.subcat{margin:25px 0 12px;padding-right:10px;border-right:5px solid var(--main);font-size:21px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:15px}
-.card{background:#fff;border-radius:16px;padding:15px;box-shadow:0 3px 14px #0000000d;border:1px solid #eee}
-.card h3{margin:0 0 8px;font-size:18px}.desc{font-size:13px;color:#777;min-height:18px;margin-bottom:10px}
-.price-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.price{font-weight:900;color:var(--main)}
-.add{border:0;background:var(--dark);color:#fff;padding:9px 13px;border-radius:9px;cursor:pointer}.add:hover{background:var(--main)}
-.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.size-btn{border:1px solid #ddd;background:#fafafa;padding:7px 3px;border-radius:8px;cursor:pointer;font-size:12px}.size-btn:hover{border-color:var(--main);color:var(--main)}
-.empty{background:#fff;padding:25px;border-radius:15px;text-align:center;color:#777}
-.notice{background:#fff7df;border:1px solid #f0d17c;padding:14px;border-radius:12px;margin:15px 0;color:#664d00}
-.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:100;align-items:flex-end;justify-content:center}.overlay.show{display:flex}
-.panel{background:#fff;width:min(650px,100%);max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px}
-.panel-head{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#eee;border-radius:50%;width:36px;height:36px;cursor:pointer}
-.cart-item{display:grid;grid-template-columns:1fr auto;gap:10px;border-bottom:1px solid #eee;padding:13px 0}.qty{display:flex;align-items:center;gap:7px}.qty button{border:0;width:30px;height:30px;border-radius:8px;cursor:pointer}
-.total{font-size:20px;font-weight:900;display:flex;justify-content:space-between;padding:18px 0}.checkout{width:100%;padding:14px;border:0;background:var(--main);color:#fff;font-size:17px;font-weight:bold;border-radius:12px;cursor:pointer}
-form label{display:block;font-weight:bold;margin:12px 0 6px}form input,form select,form textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px}form textarea{min-height:80px;resize:vertical}
-footer{background:#171717;color:#fff;text-align:center;padding:30px 15px}.wa{color:#61df82}
-.toast{position:fixed;bottom:20px;left:20px;background:#171717;color:#fff;padding:12px 17px;border-radius:10px;display:none;z-index:200}.toast.show{display:block}
-@media(max-width:600px){.hero h1{font-size:32px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{padding:11px}.card h3{font-size:15px}.top{padding:11px 12px}.logo{font-size:23px}.cat{padding:9px 13px}}
+:root{
+  --yellow:#f6b900;--yellow2:#ffcf33;--red:#d51f18;--black:#090909;
+  --dark:#121212;--card:#1a1a1a;--muted:#aaa;--white:#fff;
+  --shadow:0 14px 40px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Tahoma","Arial",sans-serif;background:
+  radial-gradient(circle at 10% 0%,rgba(246,185,0,.12),transparent 28%),
+  radial-gradient(circle at 90% 20%,rgba(213,31,24,.12),transparent 25%),#080808;
+  color:var(--white);line-height:1.7;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,92%);margin:auto}
+
+/* Header */
+header{position:sticky;top:0;z-index:1000;background:rgba(8,8,8,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(246,185,0,.18)}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:25px;color:var(--yellow)}
+.brand-mark{width:44px;height:44px;border:2px solid var(--yellow);border-radius:50%;display:grid;place-items:center;font-size:22px;background:#111}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.nav-links a{padding:8px 10px;color:#eee;border-radius:10px;font-size:14px}
+.nav-links a:hover{background:var(--yellow);color:#111}
+.cart-btn{position:relative;border:0;background:var(--yellow);color:#111;padding:11px 16px;border-radius:13px;font-weight:900}
+.badge{position:absolute;top:-8px;left:-8px;min-width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--red);color:#fff;font-size:12px;border:2px solid #111}
+
+/* Hero */
+.hero{padding:62px 0 30px}
+.hero-box{
+  min-height:410px;border-radius:28px;overflow:hidden;position:relative;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.36)),
+    url("assets/sections-preview.png") center/cover;
+  box-shadow:var(--shadow);border:1px solid rgba(246,185,0,.22);
+}
+.hero-content{padding:58px;max-width:650px}
+.kicker{color:var(--yellow);font-weight:900;font-size:16px}
+.hero h1{font-size:clamp(38px,6vw,72px);line-height:1.05;margin:10px 0}
+.hero h1 span{color:var(--yellow)}
+.hero p{color:#ddd;font-size:18px;max-width:570px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{border:0;border-radius:13px;padding:13px 20px;font-weight:900}
+.btn-primary{background:var(--yellow);color:#111}
+.btn-dark{background:#1d1d1d;color:#fff;border:1px solid #444}
+
+/* Categories */
+.section{padding:42px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:20px}
+.section-title{font-size:32px;font-weight:900}
+.section-title span{color:var(--yellow)}
+.section-note{color:var(--muted)}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.category{
+  position:relative;min-height:180px;border-radius:20px;overflow:hidden;
+  background:#151515;border:1px solid #292929;box-shadow:var(--shadow);
+  transition:.25s;cursor:pointer
+}
+.category:hover{transform:translateY(-5px);border-color:var(--yellow)}
+.category img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover}
+.category:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.9),rgba(0,0,0,.12))}
+.category-name{position:absolute;z-index:2;bottom:15px;right:16px;left:16px;font-size:24px;font-weight:900;color:#fff}
+.category-name:before{content:"";display:inline-block;width:8px;height:25px;background:var(--yellow);margin-left:8px;border-radius:8px;vertical-align:-3px}
+.question{font-size:66px;line-height:1;color:var(--yellow);position:absolute;z-index:2;top:35px;left:50%;transform:translateX(-50%)}
+
+/* Controls */
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.search{flex:1;min-width:220px;background:#151515;border:1px solid #333;color:#fff;border-radius:13px;padding:13px 15px;outline:none}
+.search:focus{border-color:var(--yellow)}
+.filter{border:1px solid #333;background:#151515;color:#fff;padding:12px 15px;border-radius:13px}
+
+/* Products */
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.product{background:linear-gradient(180deg,#1c1c1c,#121212);border:1px solid #292929;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.product-img{height:180px;position:relative;overflow:hidden;background:#222}
+.product-img img{width:100%;height:100%;object-fit:cover}
+.product-body{padding:14px;display:flex;flex-direction:column;gap:7px;flex:1}
+.product h3{font-size:18px}
+.desc{color:#aaa;font-size:13px;min-height:24px}
+.price{color:var(--yellow);font-weight:900;font-size:18px}
+.price small{color:#bbb;font-size:11px;font-weight:500}
+.product-actions{display:flex;gap:8px;margin-top:auto}
+.add{flex:1;border:0;border-radius:11px;padding:10px;background:var(--yellow);color:#111;font-weight:900}
+.info{border:1px solid #444;background:#202020;color:#fff;border-radius:11px;padding:10px}
+
+/* Cart */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1200;display:none}
+.overlay.show{display:block}
+.cart{
+  position:fixed;top:0;right:0;height:100%;width:min(430px,94vw);background:#101010;
+  z-index:1300;transform:translateX(110%);transition:.28s;border-left:1px solid #333;
+  display:flex;flex-direction:column
+}
+.cart.open{transform:translateX(0)}
+.cart-head{padding:18px;border-bottom:1px solid #2b2b2b;display:flex;justify-content:space-between;align-items:center}
+.close{background:#222;border:1px solid #444;color:#fff;border-radius:9px;width:38px;height:38px}
+.cart-items{padding:15px;overflow:auto;flex:1}
+.cart-item{border-bottom:1px solid #292929;padding:13px 0;display:grid;grid-template-columns:1fr auto;gap:8px}
+.cart-item-name{font-weight:800}
+.cart-item-price{color:var(--yellow);font-weight:900}
+.qty{display:flex;align-items:center;gap:8px;margin-top:6px}
+.qty button{width:28px;height:28px;border-radius:8px;border:1px solid #444;background:#202020;color:#fff}
+.cart-foot{padding:16px;border-top:1px solid #2b2b2b}
+.total{display:flex;justify-content:space-between;font-size:20px;font-weight:900;margin-bottom:12px}
+.total strong{color:var(--yellow)}
+.empty{color:#999;text-align:center;padding:50px 10px}
+
+/* Modal */
+.modal{position:fixed;inset:0;z-index:1400;background:rgba(0,0,0,.78);display:none;place-items:center;padding:15px}
+.modal.show{display:grid}
+.modal-box{width:min(650px,100%);max-height:92vh;overflow:auto;background:#111;border:1px solid #3a3a3a;border-radius:20px;padding:20px;box-shadow:var(--shadow)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font-size:13px;color:#ccc}
+.field input,.field textarea,.field select{background:#1b1b1b;border:1px solid #383838;color:#fff;border-radius:11px;padding:12px;outline:none}
+.field textarea{min-height:90px;resize:vertical}
+.modal-actions{display:flex;gap:10px;margin-top:15px}
+.modal-actions .btn{flex:1}
+
+/* Footer */
+footer{margin-top:40px;border-top:1px solid #252525;padding:35px 0;color:#999;text-align:center}
+footer b{color:var(--yellow)}
+
+/* Mobile */
+@media(max-width:950px){
+  .categories{grid-template-columns:repeat(3,1fr)}
+  .product-grid{grid-template-columns:repeat(3,1fr)}
+  .nav-links{display:none}
+}
+@media(max-width:700px){
+  .hero-content{padding:35px 24px}
+  .hero-box{min-height:380px}
+  .categories{grid-template-columns:repeat(2,1fr)}
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  .product-img{height:155px}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+}
+@media(max-width:450px){
+  .container{width:94%}
+  .brand{font-size:21px}
+  .brand-mark{width:38px;height:38px}
+  .categories{grid-template-columns:1fr 1fr;gap:9px}
+  .category{min-height:145px}
+  .category-name{font-size:18px}
+  .product-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .product-img{height:135px}
+  .product-body{padding:10px}
+  .product h3{font-size:15px}
+  .desc{font-size:11px}
+  .price{font-size:15px}
+  .add,.info{padding:8px;font-size:12px}
+  .hero h1{font-size:42px}
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="top">
-    <div class="logo">قدورة <span>🍽️</span></div>
-    <button class="cart-btn" onclick="openCart()">🛒 السلة <span id="cartCount">0</span></button>
+  <div class="container nav">
+    <a class="brand" href="#"><span class="brand-mark">ق</span> مطعم قدورة</a>
+    <nav class="nav-links" id="navLinks"></nav>
+    <button class="cart-btn" onclick="openCart()">السلة <span class="badge" id="cartCount">0</span></button>
   </div>
 </header>
 
+<main>
 <section class="hero">
-  <h1>أهلاً بيك في قدورة ❤️</h1>
-  <p>اختار أكلك، ضيفه للسلة، وابعت طلبك على واتساب بسهولة</p>
-  <div class="search"><input id="search" oninput="render()" placeholder="🔎 ابحث عن أكلة..."></div>
+  <div class="container">
+    <div class="hero-box">
+      <div class="hero-content">
+        <div class="kicker">أكل قدورة دايمًا قدورة ❤️</div>
+        <h1>اطلب أكلك من <span>قدورة</span></h1>
+        <p>كشري، بيتزا، كريب، طواجن، فطاير، صواريخ ومشروبات — اختار طلبك، ضيفه للسلة وابعت الأوردر على واتساب.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#menu">شوف المنيو</a>
+          <button class="btn btn-dark" onclick="openCart()">افتح السلة</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<nav class="categories" id="categories"></nav>
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="section-title">أقسام <span>المنيو</span></div>
+        <div class="section-note">اختار القسم اللي نفسك فيه</div>
+      </div>
+    </div>
+    <div class="categories" id="categoryGrid"></div>
+  </div>
+</section>
 
-<main id="menu"></main>
+<section class="section" id="menu">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="section-title">المنيو <span>الكاملة</span></div>
+        <div class="section-note" id="resultsNote"></div>
+      </div>
+    </div>
+    <div class="controls">
+      <input class="search" id="search" placeholder="ابحث عن صنف..." oninput="renderProducts()">
+      <select class="filter" id="categoryFilter" onchange="renderProducts()"></select>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<aside class="cart" id="cart">
+  <div class="cart-head">
+    <h2>سلة الطلب</h2>
+    <button class="close" onclick="closeCart()">×</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot">
+    <div class="total"><span>الإجمالي</span><strong id="cartTotal">0 ج.م</strong></div>
+    <button class="btn btn-primary" style="width:100%" onclick="openCheckout()">إتمام الطلب عبر واتساب</button>
+  </div>
+</aside>
+
+<div class="modal" id="checkoutModal">
+  <div class="modal-box">
+    <div class="section-head">
+      <div>
+        <div class="section-title" style="font-size:26px">بيانات <span>التوصيل</span></div>
+        <div class="section-note">كل بياناتك هتتبعت مع الأوردر على واتساب</div>
+      </div>
+      <button class="close" onclick="closeCheckout()">×</button>
+    </div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>الاسم *</label>
+        <input id="customerName" required placeholder="اكتب اسمك">
+      </div>
+      <div class="field">
+        <label>رقم الموبايل *</label>
+        <input id="customerPhone" required inputmode="tel" placeholder="01xxxxxxxxx">
+      </div>
+      <div class="field full">
+        <label>العنوان بالتفصيل *</label>
+        <input id="customerAddress" required placeholder="الشارع - العمارة - الدور - الشقة">
+      </div>
+      <div class="field">
+        <label>المنطقة *</label>
+        <select id="customerArea">
+          <option value="">اختار المنطقة</option>
+          <option>الجيزة</option>
+          <option>فيصل</option>
+          <option>الهرم</option>
+          <option>العمرانية</option>
+          <option>بولاق الدكرور</option>
+          <option>المهندسين</option>
+          <option>الدقي</option>
+          <option>أخرى</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>رسوم التوصيل</label>
+        <input value="0 ج.م" disabled>
+      </div>
+      <div class="field full">
+        <label>ملاحظات على الطلب</label>
+        <textarea id="customerNotes" placeholder="مثلاً: من غير شطة، الصوصات منفصلة..."></textarea>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-dark" onclick="closeCheckout()">رجوع</button>
+      <button class="btn btn-primary" onclick="sendWhatsApp()">إرسال الأوردر على واتساب</button>
+    </div>
+  </div>
+</div>
 
 <footer>
-  <h2>قدورة 🍽️</h2>
-  <p>أكلتك المفضلة لحد باب البيت</p>
-  <p class="wa">📱 الطلبات عبر واتساب</p>
+  <div class="container">
+    <b>مطعم قدورة</b> — أكل قدورة دايمًا قدورة ❤️<br>
+    <small>التوصيل حاليًا: 0 ج.م</small>
+  </div>
 </footer>
 
-<div class="overlay" id="cartOverlay" onclick="closeOutside(event,'cartOverlay')">
-  <div class="panel">
-    <div class="panel-head"><h2>🛒 سلة المشتريات</h2><button class="close" onclick="closeCart()">×</button></div>
-    <div id="cartItems"></div>
-    <div id="cartSummary"></div>
-  </div>
-</div>
-
-<div class="overlay" id="checkoutOverlay" onclick="closeOutside(event,'checkoutOverlay')">
-  <div class="panel">
-    <div class="panel-head"><h2>📦 بيانات الطلب</h2><button class="close" onclick="closeCheckout()">×</button></div>
-    <div class="notice">مصاريف التوصيل حاليًا 0 جنيه لكل المناطق، ويمكن تعديلها لاحقًا من الكود.</div>
-    <form id="checkoutForm" onsubmit="sendOrder(event)">
-      <label>الاسم *</label><input id="customerName" required>
-      <label>رقم الموبايل *</label><input id="customerPhone" type="tel" required>
-      <label>منطقة التوصيل *</label>
-      <select id="area" required></select>
-      <label>العنوان بالتفصيل *</label><textarea id="address" required placeholder="الشارع، العمارة، الدور، الشقة..."></textarea>
-      <label>ملاحظات</label><textarea id="notes" placeholder="أي ملاحظات على الطلب"></textarea>
-      <div id="checkoutTotal" class="total"></div>
-      <button class="checkout" type="submit">تأكيد الطلب وإرساله على واتساب</button>
-    </form>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
 <script>
-// =========================
-// إعدادات الموقع
-// =========================
+/* =========================
+   إعدادات الموقع
+========================= */
+const WHATSAPP_NUMBER = "201146027279"; // ← غيّر الرقم لرقم واتساب المطعم بدون +
+const DELIVERY_FEE = 0;
 
-// ضع رقم واتساب المطعم هنا بصيغة دولية بدون + أو مسافات.
-// مثال مصر: 2010XXXXXXXX
-const WHATSAPP_NUMBER = "201146027279";
+/* صور الأقسام */
+const sectionImages = {
+  "كشرى":"assets/koshary.jpg",
+  "بيتزا":"assets/pizza.jpg",              // ضع صورة البيتزا السابقة هنا باسم pizza.jpg
+  "كريب":"assets/crepe.jpg",
+  "طواجن":"assets/casseroles.jpg",         // ضع صورة الطواجن هنا باسم casseroles.jpg
+  "فطاير":"assets/feteer-swarikh.jpg",
+  "الصواريخ":"assets/feteer-swarikh.jpg",
+  "المشروبات":"assets/drinks.jpg",         // ضع صورة المشروبات السابقة هنا باسم drinks.jpg
+  "العروض":null,
+  "الجديد":null
+};
 
-// مناطق التوصيل - السعر حاليًا 0 كما اتفقنا.
-// يمكنك إضافة/تعديل أي منطقة وسعرها من هنا.
-const DELIVERY_AREAS = [
-  {name:"اختر المنطقة", fee:0, disabled:true},
-  {name:"فيصل", fee:0},
-  {name:"الهرم", fee:0},
-  {name:"الجيزة", fee:0},
-  {name:"العمرانية", fee:0},
-  {name:"المناطق الأخرى", fee:0}
+const categories = ["كشرى","طواجن","بيتزا","فطاير","كريب","الصواريخ","المشروبات","العروض","الجديد"];
+
+const products = [
+/* كشرى */
+{name:"علبة كشري 20",cat:"كشرى",price:20},
+{name:"علبة كشري 30",cat:"كشرى",price:30},
+{name:"علبة كشري 40",cat:"كشرى",price:40},
+{name:"علبة كشري 50",cat:"كشرى",price:50},
+{name:"إضافة بصل",cat:"كشرى",price:12},
+{name:"إضافة حمص",cat:"كشرى",price:12},
+{name:"إضافة عدس",cat:"كشرى",price:12},
+{name:"إضافة صلصة",cat:"كشرى",price:12},
+{name:"عيش توست",cat:"كشرى",price:10},
+{name:"دقة",cat:"كشرى",price:10},
+{name:"دقة طماطم",cat:"كشرى",price:10},
+{name:"رز بلبن عادي",cat:"كشرى",price:15},
+{name:"رز بلبن فرن",cat:"كشرى",price:20},
+{name:"رز بلبن قشطة وعسل ومكسرات عادي",cat:"كشرى",price:25},
+{name:"رز بلبن فرن قشطة وعسل ومكسرات",cat:"كشرى",price:30},
+
+/* طواجن */
+{name:"طاجن فراخ",cat:"طواجن",price:50},
+{name:"طاجن لحمه",cat:"طواجن",price:45},
+{name:"طاجن موزاريلا وسط فراخ",cat:"طواجن",price:65},
+{name:"طاجن موزاريلا كبير فراخ",cat:"طواجن",price:75},
+{name:"طاجن موزاريلا وسط لحمه",cat:"طواجن",price:60},
+{name:"طاجن موزاريلا كبير لحمه",cat:"طواجن",price:70},
+{name:"طاجن ميكس فراخ",cat:"طواجن",price:65},
+{name:"طاجن ميكس لحمه",cat:"طواجن",price:55},
+{name:"إضافة فراخ",cat:"طواجن",price:40},
+{name:"إضافة لحمه",cat:"طواجن",price:30},
+
+/* بيتزا إيطالي */
+{name:"بيتزا مارجريتا",cat:"بيتزا",sizes:[["وسط",100],["كبير",150],["عائلي",200]]},
+{name:"بيتزا مكس جبن",cat:"بيتزا",sizes:[["وسط",140],["كبير",180],["عائلي",250]]},
+{name:"بيتزا كيري",cat:"بيتزا",sizes:[["وسط",140],["كبير",180],["عائلي",250]]},
+{name:"بيتزا خضروات",cat:"بيتزا",sizes:[["وسط",100],["كبير",150],["عائلي",200]]},
+{name:"بيتزا تشيكن",cat:"بيتزا",sizes:[["وسط",125],["كبير",160],["عائلي",230]]},
+{name:"بيتزا تشيكن بانيه",cat:"بيتزا",sizes:[["وسط",125],["كبير",160],["عائلي",230]]},
+{name:"بيتزا تشيكن كرانشي",cat:"بيتزا",sizes:[["وسط",125],["كبير",160],["عائلي",230]]},
+{name:"بيتزا تشيكن مكس",cat:"بيتزا",sizes:[["وسط",140],["كبير",180],["عائلي",250]]},
+{name:"بيتزا تشيكن ستريبس",cat:"بيتزا",sizes:[["وسط",125],["كبير",170],["عائلي",240]]},
+{name:"بيتزا تشيكن شاورما",cat:"بيتزا",sizes:[["وسط",125],["كبير",160],["عائلي",230]]},
+{name:"بيتزا تشيكن شيش",cat:"بيتزا",sizes:[["وسط",125],["كبير",160],["عائلي",230]]},
+{name:"بيتزا سموك تورك",cat:"بيتزا",sizes:[["وسط",125],["كبير",160],["عائلي",230]]},
+{name:"بيتزا فونجي مشروم",cat:"بيتزا",sizes:[["وسط",115],["كبير",150],["عائلي",200]]},
+{name:"بيتزا سوبر سوبريم",cat:"بيتزا",sizes:[["وسط",140],["كبير",180],["عائلي",250]]},
+{name:"بيتزا لحمة",cat:"بيتزا",sizes:[["وسط",125],["كبير",160],["عائلي",240]]},
+{name:"بيتزا شاورما لحمة",cat:"بيتزا",sizes:[["وسط",125],["كبير",170],["عائلي",240]]},
+{name:"بيتزا سجق",cat:"بيتزا",sizes:[["وسط",125],["كبير",160],["عائلي",240]]},
+{name:"بيتزا سوسيس",cat:"بيتزا",sizes:[["وسط",125],["كبير",160],["عائلي",240]]},
+{name:"بيتزا سلامي",cat:"بيتزا",sizes:[["وسط",125],["كبير",170],["عائلي",240]]},
+{name:"بيتزا بسطرمة",cat:"بيتزا",sizes:[["وسط",130],["كبير",170],["عائلي",240]]},
+{name:"بيتزا تونة",cat:"بيتزا",sizes:[["وسط",130],["كبير",180],["عائلي",240]]},
+
+/* فطاير */
+{name:"فطيرة مكس جبن",cat:"فطاير",sizes:[["وسط",140],["كبير",180],["عائلي",250]]},
+{name:"فطيرة رومي",cat:"فطاير",sizes:[["وسط",110],["كبير",150],["عائلي",200]]},
+{name:"فطيرة كيري",cat:"فطاير",sizes:[["وسط",140],["كبير",180],["عائلي",250]]},
+{name:"فطيرة موتزاريلا",cat:"فطاير",sizes:[["وسط",110],["كبير",170],["عائلي",200]]},
+{name:"فطيرة مشروم",cat:"فطاير",sizes:[["وسط",110],["كبير",160],["عائلي",200]]},
+{name:"فطيرة شاورما",cat:"فطاير",sizes:[["وسط",130],["كبير",170],["عائلي",240]]},
+{name:"فطيرة ستريبس",cat:"فطاير",sizes:[["وسط",130],["كبير",160],["عائلي",230]]},
+{name:"فطيرة بانيه",cat:"فطاير",sizes:[["وسط",130],["كبير",160],["عائلي",230]]},
+{name:"فطيرة شيش",cat:"فطاير",sizes:[["وسط",130],["كبير",160],["عائلي",230]]},
+{name:"فطيرة مكس دجاج",cat:"فطاير",sizes:[["وسط",140],["كبير",180],["عائلي",250]]},
+{name:"فطيرة دجاج",cat:"فطاير",sizes:[["وسط",125],["كبير",160],["عائلي",230]]},
+{name:"فطيرة سجق",cat:"فطاير",sizes:[["وسط",125],["كبير",160],["عائلي",230]]},
+{name:"فطيرة لحمة",cat:"فطاير",sizes:[["وسط",125],["كبير",160],["عائلي",230]]},
+{name:"فطيرة سوسيس",cat:"فطاير",sizes:[["وسط",125],["كبير",160],["عائلي",230]]},
+{name:"فطيرة سلامي",cat:"فطاير",sizes:[["وسط",130],["كبير",170],["عائلي",240]]},
+{name:"فطيرة بسطرمة",cat:"فطاير",sizes:[["وسط",130],["كبير",170],["عائلي",240]]},
+{name:"فطيرة مكس لحوم",cat:"فطاير",sizes:[["وسط",140],["كبير",180],["عائلي",250]]},
+{name:"فطيرة شوكولاتة",cat:"فطاير",sizes:[["وسط",110],["كبير",150]]},
+{name:"فطيرة شوكولاتة ومكسرات",cat:"فطاير",sizes:[["وسط",125],["كبير",160]]},
+{name:"تورتة قدورة",cat:"فطاير",sizes:[["وسط",140],["كبير",180]]},
+{name:"فطيرة بسبوسة وقشطة",cat:"فطاير",sizes:[["وسط",120],["كبير",160]]},
+{name:"فطيرة بسبوسة وكنافة",cat:"فطاير",sizes:[["وسط",130],["كبير",160]]},
+{name:"فطيرة سكر",cat:"فطاير",sizes:[["صغير",30],["وسط",50],["كبير",100]]},
+{name:"فطيرة بغاشة",cat:"فطاير",sizes:[["صغير",45],["وسط",80],["كبير",120]]},
+{name:"موزيكا",cat:"فطاير",sizes:[["وسط",120],["كبير",160]]},
+{name:"قشطوطة",cat:"فطاير",sizes:[["وسط",110],["كبير",140]]},
+{name:"كنافة",cat:"فطاير",sizes:[["وسط",120],["كبير",150]]},
+{name:"بسبوسة",cat:"فطاير",sizes:[["وسط",120],["كبير",150]]},
+{name:"كاستر",cat:"فطاير",sizes:[["وسط",90],["كبير",130]]},
+{name:"مكسرات",cat:"فطاير",sizes:[["وسط",120],["كبير",160]]},
+
+/* كريب */
+{name:"كريب بطاطس",cat:"كريب",price:50},
+{name:"كريب مشروم",cat:"كريب",price:80},
+{name:"كريب رومي",cat:"كريب",price:80},
+{name:"كريب موتزاريلا",cat:"كريب",price:75},
+{name:"كريب كيري",cat:"كريب",price:100},
+{name:"كريب ميكس جبن",cat:"كريب",price:110},
+{name:"كريب بانيه",cat:"كريب",price:80,desc:"صدور دجاج مقلية مقرمشة"},
+{name:"كريب بانيه حار",cat:"كريب",price:85,desc:"صدور دجاج حارة مقرمشة"},
+{name:"كريب سوبر كرانشي",cat:"كريب",price:100,desc:"صدور كرسبي واستربس وتركي مدخن"},
+{name:"كريب زنجر",cat:"كريب",price:110,desc:"فيليه دجاج مقلي وعليه سموك تركي"},
+{name:"كريب تشيكن فاهيتا",cat:"كريب",price:110,desc:"صدور مشوية ومشروم وصوص فاهيتا"},
+{name:"كريب شيش طاووق",cat:"كريب",price:100,desc:"أوراك دجاج مشوية"},
+{name:"كريب مشوي صدور",cat:"كريب",price:110,desc:"صدور مشوية وصوص رانش"},
+{name:"كريب تشيكن فرايداي",cat:"كريب",price:110,desc:"شيش ومشروم"},
+{name:"كريب شاورما دجاج",cat:"كريب",price:95},
+{name:"كريب برجر",cat:"كريب",price:90},
+{name:"كريب كفتة مشوي",cat:"كريب",price:90},
+{name:"كريب هوت دوج",cat:"كريب",price:90},
+{name:"كريب شاورما لحمه",cat:"كريب",price:100},
+{name:"كريب فاهيتا لحمه",cat:"كريب",price:110},
+{name:"كريب سجق اسكندراني",cat:"كريب",price:90},
+{name:"كريب بسطرمه",cat:"كريب",price:110},
+{name:"كريب سلامي",cat:"كريب",price:100},
+{name:"كريب ميكس دجاج",cat:"كريب",price:130,desc:"شيش وشاورما ودجاج استربس"},
+{name:"كريب ميكس لحوم",cat:"كريب",price:125,desc:"كفتة وشاورما وسجق"},
+{name:"كريب استربس رانش",cat:"كريب",price:120,desc:"دجاج استربس وصوص رانش"},
+{name:"كريب استربس كيري",cat:"كريب",price:125,desc:"دجاج استربس وجبنة كيري"},
+{name:"كريب الجامد",cat:"كريب",price:140,desc:"شيش واستربس وصوص شيدر"},
+{name:"كريب يوجي",cat:"كريب",price:150,desc:"استربس وسلامي وبسطرمة"},
+{name:"كريب العملاق",cat:"كريب",price:150,desc:"سجق وسوسيس وبانيه واستربس"},
+{name:"كريب قدورة",cat:"كريب",price:150,desc:"شيش وسجق واستربس وبطاطس"},
+{name:"كريب شوكولاتة",cat:"كريب",price:80},
+{name:"كريب شوكولاتة موز",cat:"كريب",price:90},
+{name:"كريب شوكولاتة مكسرات",cat:"كريب",price:90},
+{name:"كريب أوريو",cat:"كريب",price:90},
+{name:"كريب هوهوز",cat:"كريب",price:90},
+{name:"كريب لوتس",cat:"كريب",price:90},
+
+/* الصواريخ */
+{name:"صاروخ فطير جبنة",cat:"الصواريخ",price:70},
+{name:"صاروخ فطير ميكس",cat:"الصواريخ",price:90},
+{name:"صاروخ فطير دجاج",cat:"الصواريخ",price:95},
+{name:"صاروخ فطير لحمة",cat:"الصواريخ",price:95},
+
+/* المشروبات */
+{name:"كانز",cat:"المشروبات",price:20},
+{name:"لتر كولا",cat:"المشروبات",price:40},
+{name:"مياه معدنية ص",cat:"المشروبات",price:10},
+{name:"مياه معدنية ك",cat:"المشروبات",price:15},
+
+/* العروض والجديد: عناصر مؤقتة بدون أسعار */
+{name:"العروض الجديدة",cat:"العروض",price:0,desc:"قريبًا — تابعنا لمعرفة أحدث العروض"},
+{name:"أصناف جديدة",cat:"الجديد",price:0,desc:"قريبًا — أصناف جديدة من قدورة"}
 ];
 
-const menu = [
-  {section:"كشرى", groups:[
-    {name:"العلب", items:[
-      ["كشري علبة 20",20],["كشري علبة 30",30],["كشري علبة 40",40],["كشري علبة 50",50]
-    ]},
-    {name:"الإضافات",items:[
-      ["بصل",12],["حمص",12],["عدس",12],["صلصة",12],["عيش توست",10],["دقة",10],["دقة طماطم",10]
-    ]},
-    {name:"الحلو",items:[
-      ["رز بلبن عادي",15],["رز بلبن فرن",20],["رز بلبن قشطة وعسل ومكسرات عادي",25],["رز بلبن فرن قشطة وعسل ومكسرات",30]
-    ]}
-  ]},
-  {section:"طواجن",groups:[
-    {name:"الطواجن",items:[
-      ["طاجن فراخ",50],["طاجن لحمة",45],["طاجن موزاريلا وسط فراخ",65],["طاجن موزاريلا كبير فراخ",75],
-      ["طاجن موزاريلا وسط لحمة",60],["طاجن موزاريلا كبير لحمة",70],["طاجن ميكس فراخ",65],["طاجن ميكس لحمة",55],
-      ["إضافة فراخ",40],["إضافة لحمة",30]
-    ]}
-  ]},
-  {section:"بيتزا",groups:[
-    {name:"بيتزا إيطالي - الجبن",items:[
-      ["مارجريتا",[100,150,200]],["مكس جبن",[140,180,250]],["كيري",[140,180,250]],["خضروات",[100,150,200]]
-    ]},
-    {name:"بيتزا إيطالي - الدجاج",items:[
-      ["تشيكن",[125,160,230]],["تشيكن بانيه",[125,160,230]],["تشيكن كرانشي",[125,160,230]],["تشيكن مكس",[140,180,250]],
-      ["تشيكن ستريبس",[125,170,240]],["تشيكن شاورما",[125,160,230]],["تشيكن شيش",[125,160,230]],["سموك تورك",[125,160,230]],["فونجي مشروم",[115,150,200]]
-    ]},
-    {name:"بيتزا إيطالي - اللحوم",items:[
-      ["سوبر سوبريم",[140,180,250]],["لحمة",[125,160,240]],["شاورما لحمة",[125,170,240]],["سجق",[125,160,240]],["سوسيس",[125,160,240]],["سلامي",[125,170,240]],["بسطرمة",[130,170,240]]
-    ]},
-    {name:"بيتزا إيطالي - الأسماك",items:[
-      ["تونة",[130,180,240]]
-    ]},
-    {name:"بيتزا شرقي - الجبن",items:[
-      ["ميكس جبن",[140,180,250]],["رومي",[110,150,200]],["كيري",[140,180,250]],["موتزاريلا",[110,170,200]],["مشروم",[110,160,200]]
-    ]},
-    {name:"بيتزا شرقي - الدجاج",items:[
-      ["شاورما",[130,170,240]],["ستريبس",[130,160,230]],["بانيه",[130,160,230]],["شيش",[130,160,230]],["مكس دجاج",[140,180,250]],["دجاج",[125,160,230]]
-    ]},
-    {name:"بيتزا شرقي - اللحوم",items:[
-      ["سجق",[125,160,230]],["لحمة",[125,160,230]],["سوسيس",[125,160,230]],["سلامي",[130,170,240]],["بسطرمة",[130,170,240]],["مكس لحوم",[140,180,250]]
-    ]}
-  ]},
-  {section:"فطاير",groups:[
-    {name:"الفطاير الحادق - الجبن",items:[
-      ["ميكس جبن",[140,180,250]],["رومي",[110,150,200]],["كيري",[140,180,250]],["موتزاريلا",[110,170,200]],["مشروم",[110,160,200]]
-    ]},
-    {name:"الفطاير الحادق - الدجاج",items:[
-      ["شاورما",[130,170,240]],["ستريبس",[130,160,230]],["بانيه",[130,160,230]],["شيش",[130,160,230]],["مكس دجاج",[140,180,250]],["دجاج",[125,160,230]]
-    ]},
-    {name:"الفطاير الحادق - اللحوم",items:[
-      ["سجق",[125,160,230]],["لحمة",[125,160,230]],["سوسيس",[125,160,230]],["سلامي",[130,170,240]],["بسطرمة",[130,170,240]],["مكس لحوم",[140,180,250]]
-    ]},
-    {name:"الفطاير الحلو",items:[
-      ["شوكولاتة",[110,150]],["شوكولاتة ومكسرات",[125,160]],["تورتة قدورة",[140,180]],["بسبوسة وقشطة",[120,160]],["بسبوسة وكنافة",[130,160]],
-      ["سكر",[30,50,100]],["بغاشة",[45,80,120]],["موزيكا",[120,160]],["قشطوطة",[110,140]],["كنافة",[120,150]],["بسبوسة",[120,150]],["كاستر",[90,130]],["مكسرات",[120,160]]
-    ]}
-  ]},
-  {section:"كريب",groups:[
-    {name:"الجبن",items:[
-      ["كريب بطاطس",50],["كريب مشروم",80],["كريب رومي",80],["كريب موتزاريلا",75],["كريب كيري",100],["كريب ميكس لبن",110]
-    ]},
-    {name:"الدجاج",items:[
-      ["كريب بانيه",80,"صدور دجاج مقلية مقرمشة"],["كريب بانيه حار",85,"صدور دجاج حارة مقرمشة"],["كريب سوبر كرانشي",100,"صدور كرسبي واستربس وتركي مدخن"],
-      ["كريب زنجر",110,"فيليه دجاج مقلي وعليه سموك تركي"],["كريب تشيكن فاهيتا",110,"صدور مشوية ومشروم وصوص فاهيتا"],["كريب شيش طاووق",100,"أوراك دجاج مشوية"],
-      ["كريب مشوي صدور",110,"صدور مشوية وصوص رانش"],["كريب تشيكن فرايداي",110,"شيش ومشروم"],["كريب شاورما دجاج",95,"شاورما دجاج"]
-    ]},
-    {name:"اللحوم",items:[
-      ["كريب برجر",90],["كريب كفتة مشوي",90],["كريب هوت دوج",90],["كريب شاورما لحمه",100],["كريب فاهيتا لحمه",110],["كريب سجق اسكندراني",90],["كريب بسطرمه",110],["كريب سلامي",100]
-    ]},
-    {name:"الميكسات والوحوش",items:[
-      ["كريب ميكس دجاج",130,"شيش وشاورما ودجاج استربس"],["كريب ميكس لحوم",125,"كفتة وشاورما وسجق"],["كريب استربس رانش",120,"دجاج استربس وصوص رانش"],
-      ["كريب استربس كيري",125,"دجاج استربس وجبنة كيري"],["كريب الجامد",140,"شيش واستربس وصوص شيدر"],["كريب يوجي",150,"استربس وسلامي وبسطرمة"],
-      ["كريب العملاق",150,"سجق وسوسيس وبانيه واستربس"],["كريب قدورة",150,"شيش وسجق واستربس وبطاطس"]
-    ]},
-    {name:"الحلو",items:[
-      ["كريب شوكولاتة",80],["كريب شوكولاتة موز",90],["كريب شوكولاتة مكسرات",90],["كريب أوريو",90],["كريب هوهوز",90],["كريب لوتس",90]
-    ]}
-  ]},
-  {section:"الصواريخ",groups:[
-    {name:"الصواريخ",items:[
-      ["صاروخ - أضف الصنف والسعر هنا",0,"القائمة جاهزة للإضافة"]
-    ]}
-  ]},
-  {section:"المشروبات",groups:[
-    {name:"المشروبات",items:[["كانز",20],["لتر كولا",40],["مياه معدنية ص",10],["مياه معدنية ك",15]]}
-  ]},
-  {section:"العروض",groups:[
-    {name:"العروض",items:[["عرض جديد - أضف التفاصيل والسعر هنا",0,"يمكنك تعديل هذا العنصر وحذفه عند إضافة العروض"]]}
-  ]},
-  {section:"الجديد",groups:[
-    {name:"جديد من قدورة",items:[["صنف جديد - أضف التفاصيل والسعر هنا",0,"يمكنك تعديل هذا العنصر وحذفه عند إضافة الجديد"]]}
-  ]}
-];
+let cart = JSON.parse(localStorage.getItem("kadoura_cart") || "[]");
 
-let cart = [];
+function money(n){return `${n} ج.م`}
 
-function money(n){return `${Number(n).toLocaleString('ar-EG')} جنيه`}
-
-function init(){
-  const cats=document.getElementById("categories");
-  cats.innerHTML=menu.map((m,i)=>`<button class="cat ${i===0?'active':''}" onclick="selectSection(${i},this)">${m.section}</button>`).join("");
-  document.getElementById("area").innerHTML=DELIVERY_AREAS.map(a=>`<option value="${a.name}" data-fee="${a.fee}" ${a.disabled?'disabled':''}>${a.name}${!a.disabled?' — '+money(a.fee):''}</option>`).join("");
-  render();
+function sectionImage(cat){
+  const img = sectionImages[cat];
+  return img ? `<img src="${img}" alt="${cat}" loading="lazy">` : `<div class="question">?</div>`;
 }
 
-let currentSection=0;
-function selectSection(i,el){
-  currentSection=i;
-  document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));el.classList.add("active");
-  document.getElementById("search").value="";
-  render();
-  window.scrollTo({top:document.querySelector("main").offsetTop-70,behavior:"smooth"});
+function buildCategories(){
+  document.getElementById("categoryGrid").innerHTML = categories.map(cat => `
+    <div class="category" onclick="chooseCategory('${cat}')">
+      ${sectionImage(cat)}
+      <div class="category-name">${cat}</div>
+    </div>
+  `).join("");
 }
 
-function render(){
-  const q=document.getElementById("search").value.trim().toLowerCase();
-  const sections=q ? menu : [menu[currentSection]];
-  let html="";
-  sections.forEach(section=>{
-    let groupsHtml="";
-    section.groups.forEach(group=>{
-      const items=group.items.filter(x=>!q || x[0].toLowerCase().includes(q) || (x[2]||"").toLowerCase().includes(q));
-      if(!items.length)return;
-      groupsHtml+=`<h3 class="subcat">${group.name}</h3><div class="grid">`;
-      items.forEach(item=>{groupsHtml+=card(item,section.section,group.name)});
-      groupsHtml+="</div>";
-    });
-    if(groupsHtml) html+=`<div class="section-title"><h2>${section.section}</h2><small>${section.groups.reduce((a,g)=>a+g.items.length,0)} صنف</small></div>${groupsHtml}`;
-  });
-  document.getElementById("menu").innerHTML=html||`<div class="empty">مفيش نتيجة للبحث 🔎</div>`;
+function buildFilters(){
+  document.getElementById("navLinks").innerHTML = categories.map(c=>`<a href="#menu" onclick="chooseCategory('${c}')">${c}</a>`).join("");
+  document.getElementById("categoryFilter").innerHTML =
+    `<option value="">كل الأقسام</option>` + categories.map(c=>`<option>${c}</option>`).join("");
 }
 
-function card(item,section,group){
-  const [name,prices,desc]=item;
-  if(Array.isArray(prices)){
-    const labels=prices.length===3?["صغير","وسط","كبير"]:["صغير","كبير"];
-    return `<article class="card"><h3>${name}</h3><div class="desc">${desc||''}</div><div class="sizes">
-      ${prices.map((p,i)=>`<button class="size-btn" onclick="addItem('${esc(name)} - ${labels[i]}','${esc(section)}','${esc(group)}',${p})">${labels[i]}<br><b>${money(p)}</b></button>`).join("")}
-    </div></article>`;
+function chooseCategory(cat){
+  document.getElementById("categoryFilter").value = cat;
+  document.getElementById("search").value = "";
+  document.getElementById("menu").scrollIntoView({behavior:"smooth"});
+  renderProducts();
+}
+
+function productImage(cat){
+  const src = sectionImages[cat];
+  if(src) return `<img src="${src}" alt="${cat}" loading="lazy">`;
+  return `<div class="question">?</div>`;
+}
+
+function renderProducts(){
+  const q = document.getElementById("search").value.trim().toLowerCase();
+  const cat = document.getElementById("categoryFilter").value;
+  let list = products.filter(p =>
+    (!cat || p.cat === cat) &&
+    (!q || p.name.toLowerCase().includes(q) || (p.desc||"").toLowerCase().includes(q))
+  );
+
+  document.getElementById("resultsNote").textContent = `${list.length} صنف`;
+  document.getElementById("productGrid").innerHTML = list.map((p,i)=>{
+    const realIndex = products.indexOf(p);
+    let priceHtml = "";
+    let selector = "";
+    if(p.sizes){
+      priceHtml = `<div class="price">${p.sizes[0][1]} ج.م <small>يبدأ من</small></div>`;
+      selector = `<select class="filter" id="size-${realIndex}" style="width:100%">${p.sizes.map((s,j)=>`<option value="${j}">${s[0]} — ${s[1]} ج.م</option>`).join("")}</select>`;
+    }else{
+      priceHtml = p.price ? `<div class="price">${money(p.price)}</div>` : `<div class="price">قريبًا</div>`;
+    }
+
+    const disabled = !p.price && !p.sizes;
+    return `<article class="product">
+      <div class="product-img">${productImage(p.cat)}</div>
+      <div class="product-body">
+        <h3>${p.name}</h3>
+        <div class="desc">${p.desc || ""}</div>
+        ${priceHtml}
+        ${selector}
+        <div class="product-actions">
+          <button class="add" ${disabled?"disabled":""} onclick="addProduct(${realIndex})">${disabled?"قريبًا":"أضف للسلة"}</button>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+function addProduct(index){
+  const p = products[index];
+  let name=p.name, price=p.price;
+  if(p.sizes){
+    const sel=document.getElementById(`size-${index}`);
+    const chosen=p.sizes[Number(sel.value)];
+    name += ` (${chosen[0]})`;
+    price = chosen[1];
   }
-  return `<article class="card"><h3>${name}</h3><div class="desc">${desc||''}</div><div class="price-row"><span class="price">${money(prices)}</span><button class="add" onclick="addItem('${esc(name)}','${esc(section)}','${esc(group)}',${prices})">+ أضف</button></div></article>`;
-}
-function esc(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
-
-function addItem(name,section,group,price){
-  const existing=cart.find(x=>x.name===name);
+  const existing=cart.find(x=>x.name===name && x.price===price);
   if(existing) existing.qty++;
-  else cart.push({name,section,group,price,qty:1});
-  updateCart();toast("تمت إضافة "+name+" للسلة ✅");
+  else cart.push({name,price,qty:1});
+  saveCart();
+  openCart();
 }
-function updateCart(){
-  document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);
+
+function saveCart(){
+  localStorage.setItem("kadoura_cart",JSON.stringify(cart));
+  renderCart();
 }
-function cartTotal(){return cart.reduce((a,x)=>a+x.price*x.qty,0)}
-function openCart(){renderCart();document.getElementById("cartOverlay").classList.add("show")}
-function closeCart(){document.getElementById("cartOverlay").classList.remove("show")}
+
+function changeQty(i,delta){
+  cart[i].qty += delta;
+  if(cart[i].qty<=0) cart.splice(i,1);
+  saveCart();
+}
+
 function renderCart(){
   const box=document.getElementById("cartItems");
-  if(!cart.length){box.innerHTML='<div class="empty">السلة فاضية 😄<br>اختار أكلك الأول.</div>';document.getElementById("cartSummary").innerHTML="";return}
-  box.innerHTML=cart.map((x,i)=>`<div class="cart-item"><div><b>${x.name}</b><br><small>${money(x.price)} × ${x.qty} = ${money(x.price*x.qty)}</small></div>
-    <div class="qty"><button onclick="changeQty(${i},-1)">−</button><b>${x.qty}</b><button onclick="changeQty(${i},1)">+</button><button onclick="removeItem(${i})">🗑️</button></div></div>`).join("");
-  document.getElementById("cartSummary").innerHTML=`<div class="total"><span>الإجمالي</span><span>${money(cartTotal())}</span></div><button class="checkout" onclick="openCheckout()">إتمام الطلب</button>`;
-}
-function changeQty(i,n){cart[i].qty+=n;if(cart[i].qty<=0)cart.splice(i,1);updateCart();renderCart()}
-function removeItem(i){cart.splice(i,1);updateCart();renderCart()}
-function openCheckout(){
-  if(!cart.length){toast("السلة فاضية");return}
-  closeCart();updateCheckoutTotal();document.getElementById("checkoutOverlay").classList.add("show")
-}
-function closeCheckout(){document.getElementById("checkoutOverlay").classList.remove("show")}
-function updateCheckoutTotal(){
-  const fee=Number(document.getElementById("area").selectedOptions[0]?.dataset.fee||0);
-  document.getElementById("checkoutTotal").innerHTML=`<span>الإجمالي النهائي</span><span>${money(cartTotal()+fee)}</span>`;
-}
-document.getElementById("area").addEventListener("change",updateCheckoutTotal);
+  const count=cart.reduce((s,x)=>s+x.qty,0);
+  const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  document.getElementById("cartCount").textContent=count;
+  document.getElementById("cartTotal").textContent=money(total+DELIVERY_FEE);
 
-function sendOrder(e){
-  e.preventDefault();
-  if(!cart.length)return;
+  if(!cart.length){
+    box.innerHTML=`<div class="empty">السلة فاضية 😅<br>اختار حاجة حلوة من المنيو.</div>`;
+    return;
+  }
+  box.innerHTML=cart.map((x,i)=>`
+    <div class="cart-item">
+      <div>
+        <div class="cart-item-name">${x.name}</div>
+        <div class="cart-item-price">${money(x.price*x.qty)}</div>
+        <div class="qty">
+          <button onclick="changeQty(${i},1)">+</button>
+          <b>${x.qty}</b>
+          <button onclick="changeQty(${i},-1)">−</button>
+        </div>
+      </div>
+      <button class="close" onclick="changeQty(${i},-999)">×</button>
+    </div>
+  `).join("");
+}
+
+function openCart(){
+  document.getElementById("cart").classList.add("open");
+  document.getElementById("overlay").classList.add("show");
+}
+function closeCart(){
+  document.getElementById("cart").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+}
+
+function openCheckout(){
+  if(!cart.length){alert("السلة فاضية، اختار الأصناف الأول.");return;}
+  document.getElementById("checkoutModal").classList.add("show");
+}
+function closeCheckout(){document.getElementById("checkoutModal").classList.remove("show")}
+
+function sendWhatsApp(){
   const name=document.getElementById("customerName").value.trim();
   const phone=document.getElementById("customerPhone").value.trim();
-  const area=document.getElementById("area").value;
-  const areaFee=Number(document.getElementById("area").selectedOptions[0].dataset.fee||0);
-  const address=document.getElementById("address").value.trim();
-  const notes=document.getElementById("notes").value.trim();
-  const lines=cart.map((x,i)=>`${i+1}. ${x.name} × ${x.qty} = ${x.price*x.qty} جنيه`).join("\n");
-  const total=cartTotal()+areaFee;
-  const msg=`🟢 *طلب جديد من موقع قدورة*\n\n👤 الاسم: ${name}\n📱 الهاتف: ${phone}\n📍 المنطقة: ${area}\n🏠 العنوان: ${address}\n\n🛒 *تفاصيل الطلب:*\n${lines}\n\n💵 قيمة الطلب: ${cartTotal()} جنيه\n🚚 التوصيل: ${areaFee} جنيه\n💰 *الإجمالي النهائي: ${total} جنيه*\n\n📝 ملاحظات: ${notes||"لا يوجد"}`;
-  if(WHATSAPP_NUMBER==="201000000000"){alert("ضع رقم واتساب المطعم في متغير WHATSAPP_NUMBER داخل الكود أولًا.");return}
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank");
+  const address=document.getElementById("customerAddress").value.trim();
+  const area=document.getElementById("customerArea").value;
+  const notes=document.getElementById("customerNotes").value.trim();
+
+  if(!name || !phone || !address || !area){
+    alert("من فضلك املأ الاسم ورقم الموبايل والعنوان والمنطقة.");
+    return;
+  }
+
+  const subtotal=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const total=subtotal+DELIVERY_FEE;
+
+  let msg=`*طلب جديد من مطعم قدورة*%0A%0A`;
+  msg+=`*بيانات العميل:*%0A`;
+  msg+=`الاسم: ${encodeURIComponent(name)}%0A`;
+  msg+=`الموبايل: ${encodeURIComponent(phone)}%0A`;
+  msg+=`العنوان: ${encodeURIComponent(address)}%0A`;
+  msg+=`المنطقة: ${encodeURIComponent(area)}%0A%0A`;
+  msg+=`*الأصناف:*%0A`;
+  cart.forEach((x,i)=>{
+    msg+=`${i+1}. ${encodeURIComponent(x.name)} × ${x.qty} = ${encodeURIComponent(money(x.price*x.qty))}%0A`;
+  });
+  msg+=`%0Aرسوم التوصيل: ${DELIVERY_FEE} ج.م%0A`;
+  msg+=`*الإجمالي: ${total} ج.م*%0A`;
+  msg+=`ملاحظات: ${encodeURIComponent(notes || "لا توجد")}`;
+
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`,"_blank");
 }
 
-function closeOutside(e,id){if(e.target.id===id)document.getElementById(id).classList.remove("show")}
-function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1800)}
-init();
+/* تشغيل */
+buildCategories();
+buildFilters();
+renderProducts();
+renderCart();
 </script>
 </body>
 </html>

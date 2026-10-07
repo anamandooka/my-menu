@@ -5,96 +5,325 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منيو المطعم</title>
     <style>
+        * { box-sizing: border-box; }
         body { font-family: Tahoma, sans-serif; background: #f8f9fa; color: #333; margin: 0; padding: 0; text-align: center; }
-        header { background: #d9534f; color: white; padding: 20px; font-size: 24px; font-weight: bold; }
+        header { background: #d9534f; color: white; padding: 20px; font-size: 24px; font-weight: bold; position: relative; }
         .container { max-width: 800px; margin: 20px auto; padding: 10px; }
-        .category { background: white; margin: 15px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: right; }
-        .category h2 { color: #d9534f; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 5px; }
-        .sub-category { margin: 10px 0; font-weight: bold; color: #444; background: #f1f1f1; padding: 5px 10px; border-radius: 4px; }
-        .item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #ddd; }
+        
+        /* الأقسام الرئيسية */
+        .main-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .main-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s; border-bottom: 4px solid #d9534f; }
+        .main-card:hover { transform: translateY(-5px); background: #fff5f5; }
+        .main-card h3 { margin: 0; color: #333; font-size: 18px; }
+
+        /* الأقسام الداخلية */
+        .category-section { display: none; background: white; margin: 15px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: right; }
+        .category-section h2 { color: #d9534f; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .back-btn { background: #6c757d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .back-btn:hover { background: #5a6268; }
+
+        .sub-category { margin: 15px 0 5px 0; font-weight: bold; color: #444; background: #f1f1f1; padding: 6px 10px; border-radius: 4px; }
+        
+        /* الأصناف والصور */
+        .item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #ddd; }
         .item:last-child { border-bottom: none; }
-        .price { color: #27ae60; font-weight: bold; margin-left: 10px; }
-        .btn-order { background: #25d366; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; }
-        .btn-order:hover { background: #1ebe5d; }
+        .item-info { display: flex; align-items: center; gap: 12px; }
+        .item-img { width: 55px; height: 55px; border-radius: 6px; object-fit: cover; background: #ddd; }
+        .item-details h4 { margin: 0 0 5px 0; font-size: 16px; color: #222; }
+        .price { color: #27ae60; font-weight: bold; font-size: 15px; }
+        
+        .btn-add { background: #27ae60; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+        .btn-add:hover { background: #219653; }
+
+        /* سلة المشتريات العائمة */
+        .cart-box { position: fixed; bottom: 0; left: 0; right: 0; background: #222; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -4px 10px rgba(0,0,0,0.2); z-index: 1000; }
+        .cart-info { font-size: 16px; font-weight: bold; }
+        .btn-checkout { background: #25d366; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        .btn-checkout:hover { background: #1ebe5d; }
     </style>
 </head>
 <body>
 
-    <header>🍽️ منيو المطعم 🍽️</header>
+    <header>🍽️️ مطعم قدورة 🍽️</header>
 
     <div class="container">
 
-        <!-- قسم الكشري -->
-        <div class="category">
-            <h2>🍜 قسم الكشري</h2>
+        <!-- الشاشة الرئيسية: الأقسام الأربعة -->
+        <div id="homeScreen">
+            <h2 style="color: #555; margin-bottom: 20px;">اختر القسم المطلوب</h2>
+            <div class="main-categories">
+                <div class="main-card" onclick="openCategory('koshary')">
+                    <h3>🍜 الكشري</h3>
+                </div>
+                <div class="main-card" onclick="openCategory('tagines')">
+                    <h3>🍲 الطواجن</h3>
+                </div>
+                <div class="main-card" onclick="openCategory('crepe')">
+                    <h3>🌯 الكريب</h3>
+                </div>
+                <div class="main-card" onclick="openCategory('other')">
+                    <h3>🍕 البيتزا والفطائر</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. قسم الكشري -->
+        <div id="koshary" class="category-section">
+            <h2>🍜 قسم الكشري <button class="back-btn" onclick="goHome()">رجوع للأقسام</button></h2>
+            
             <div class="sub-category">علب الكشري</div>
-            <div class="item"><span>علبة كشري</span> <span class="price">20 جنيه</span> <button class="btn-order" onclick="orderItem('علبة كشري', 20)">اطلب</button></div>
-            <div class="item"><span>علبة كشري</span> <span class="price">25 جنيه</span> <button class="btn-order" onclick="orderItem('علبة كشري', 25)">اطلب</button></div>
-            <div class="item"><span>علبة كشري</span> <span class="price">30 جنيه</span> <button class="btn-order" onclick="orderItem('علبة كشري', 30)">اطلب</button></div>
-            <div class="item"><span>علبة كشري</span> <span class="price">40 جنيه</span> <button class="btn-order" onclick="orderItem('علبة كشري', 40)">اطلب</button></div>
-            <div class="item"><span>علبة كشري</span> <span class="price">50 جنيه</span> <button class="btn-order" onclick="orderItem('علبة كشري', 50)">اطلب</button></div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=100" class="item-img" alt="كشري">
+                    <div class="item-details">
+                        <h4>علبة كشري</h4>
+                        <span class="price">20 جنيه</span>
+                    </div>
+                </div>
+                <button class="btn-add" onclick="addToCart('علبة كشري', 20)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=100" class="item-img" alt="كشري">
+                    <div class="item-details">
+                        <h4>علبة كشري</h4>
+                        <span class="price">25 جنيه</span>
+                    </div>
+                </div>
+                <button class="btn-add" onclick="addToCart('علبة كشري (25ج)', 25)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=100" class="item-img" alt="كشري">
+                    <div class="item-details">
+                        <h4>علبة كشري</h4>
+                        <span class="price">30 جنيه</span>
+                    </div>
+                </div>
+                <button class="btn-add" onclick="addToCart('علبة كشري (30ج)', 30)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=100" class="item-img" alt="كشري">
+                    <div class="item-details">
+                        <h4>علبة كشري</h4>
+                        <span class="price">40 جنيه</span>
+                    </div>
+                </div>
+                <button class="btn-add" onclick="addToCart('علبة كشري (40ج)', 40)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=100" class="item-img" alt="كشري">
+                    <div class="item-details">
+                        <h4>علبة كشري</h4>
+                        <span class="price">50 جنيه</span>
+                    </div>
+                </div>
+                <button class="btn-add" onclick="addToCart('علبة كشري (50ج)', 50)">إضافة للسلة</button>
+            </div>
 
             <div class="sub-category">الحلو</div>
-            <div class="item"><span>رز بلبن عادى</span> <span class="price">15 جنيه</span> <button class="btn-order" onclick="orderItem('رز بلبن عادى', 15)">اطلب</button></div>
-            <div class="item"><span>رز بلبن فرن</span> <span class="price">20 جنيه</span> <button class="btn-order" onclick="orderItem('رز بلبن فرن', 20)">اطلب</button></div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=100" class="item-img" alt="رز بلبن">
+                    <div class="item-details">
+                        <h4>رز بلبن عادى</h4>
+                        <span class="price">15 جنيه</span>
+                    </div>
+                </div>
+                <button class="btn-add" onclick="addToCart('رز بلبن عادى', 15)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=100" class="item-img" alt="رز بلبن فرن">
+                    <div class="item-details">
+                        <h4>رز بلبن فرن</h4>
+                        <span class="price">20 جنيه</span>
+                    </div>
+                </div>
+                <button class="btn-add" onclick="addToCart('رز بلبن فرن', 20)">إضافة للسلة</button>
+            </div>
 
             <div class="sub-category">الإضافات</div>
-            <div class="item"><span>خيار مخلل</span> <span class="price">10 جنيه</span> <button class="btn-order" onclick="orderItem('خيار مخلل', 10)">اطلب</button></div>
-            <div class="item"><span>عدس / تقلية / حمص / صلصة (للسلطة)</span> <span class="price">12 جنيه</span> <button class="btn-order" onclick="orderItem('إضافة كشري', 12)">اطلب</button></div>
-            <div class="item"><span>سلطة خضرا / عيش توست / دقة / دقة طماطم</span> <span class="price">10 جنيه</span> <button class="btn-order" onclick="orderItem('إضافة كشري', 10)">اطلب</button></div>
+            <div class="item">
+                <div class="item-info"><div class="item-details"><h4>خيار مخلل</h4><span class="price">10 جنيه</span></div></div>
+                <button class="btn-add" onclick="addToCart('خيار مخلل', 10)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info"><div class="item-details"><h4>عدس / تقلية / حمص / صلصة</h4><span class="price">12 جنيه</span></div></div>
+                <button class="btn-add" onclick="addToCart('إضافة كشري (عدس/حمص..)', 12)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info"><div class="item-details"><h4>سلطة / توست / دقة</h4><span class="price">10 جنيه</span></div></div>
+                <button class="btn-add" onclick="addToCart('إضافة كشري (سلطة/دقة..)', 10)">إضافة للسلة</button>
+            </div>
         </div>
 
-        <!-- قسم الطواجن -->
-        <div class="category">
-            <h2>🍲 قسم الطواجن</h2>
-            <div class="item"><span>طاجن فراخ</span> <span class="price">50 جنيه</span> <button class="btn-order" onclick="orderItem('طاجن فراخ', 50)">اطلب</button></div>
-            <div class="item"><span>طاجن لحمه</span> <span class="price">45 جنيه</span> <button class="btn-order" onclick="orderItem('طاجن لحمه', 45)">اطلب</button></div>
-            <div class="item"><span>طاجن موزاريلا فراخ</span> <span class="price">75 جنيه</span> <button class="btn-order" onclick="orderItem('طاجن موزاريلا فراخ', 75)">اطلب</button></div>
-            <div class="item"><span>طاجن موزاريلا لحمه</span> <span class="price">70 جنيه</span> <button class="btn-order" onclick="orderItem('طاجن موزاريلا لحمه', 70)">اطلب</button></div>
+        <!-- 2. قسم الطواجن -->
+        <div id="tagines" class="category-section">
+            <h2>🍲 قسم الطواجن <button class="back-btn" onclick="goHome()">رجوع للأقسام</button></h2>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=100" class="item-img" alt="طاجن">
+                    <div class="item-details"><h4>طاجن فراخ</h4><span class="price">50 جنيه</span></div>
+                </div>
+                <button class="btn-add" onclick="addToCart('طاجن فراخ', 50)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=100" class="item-img" alt="طاجن">
+                    <div class="item-details"><h4>طاجن لحمه</h4><span class="price">45 جنيه</span></div>
+                </div>
+                <button class="btn-add" onclick="addToCart('طاجن لحمه', 45)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=100" class="item-img" alt="طاجن">
+                    <div class="item-details"><h4>طاجن موزاريلا فراخ</h4><span class="price">75 جنيه</span></div>
+                </div>
+                <button class="btn-add" onclick="addToCart('طاجن موزاريلا فراخ', 75)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=100" class="item-img" alt="طاجن">
+                    <div class="item-details"><h4>طاجن موزاريلا لحمه</h4><span class="price">70 جنيه</span></div>
+                </div>
+                <button class="btn-add" onclick="addToCart('طاجن موزاريلا لحمه', 70)">إضافة للسلة</button>
+            </div>
         </div>
 
-        <!-- قسم الكريب -->
-        <div class="category">
-            <h2>🌯 قسم الكريب</h2>
+        <!-- 3. قسم الكريب -->
+        <div id="crepe" class="category-section">
+            <h2>🌯 قسم الكريب <button class="back-btn" onclick="goHome()">رجوع للأقسام</button></h2>
             
             <div class="sub-category">كريب فراخ</div>
-            <div class="item"><span>بانيه</span> <span class="price">80 جنيه</span> <button class="btn-order" onclick="orderItem('كريب بانيه', 80)">اطلب</button></div>
-            <div class="item"><span>كرسبي</span> <span class="price">85 جنيه</span> <button class="btn-order" onclick="orderItem('كريب كرسبي', 85)">اطلب</button></div>
-            <div class="item"><span>زنجر</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب زنجر', 110)">اطلب</button></div>
-            <div class="item"><span>فاهيتا</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب فاهيتا فراخ', 110)">اطلب</button></div>
-            <div class="item"><span>شاورما فراخ</span> <span class="price">95 جنيه</span> <button class="btn-order" onclick="orderItem('كريب شاورما فراخ', 95)">اطلب</button></div>
-            <div class="item"><span>سوبر كرانشي</span> <span class="price">100 جنيه</span> <button class="btn-order" onclick="orderItem('كريب سوبر كرانشي', 100)">اطلب</button></div>
-            <div class="item"><span>شيش</span> <span class="price">100 جنيه</span> <button class="btn-order" onclick="orderItem('كريب شيش', 100)">اطلب</button></div>
-            <div class="item"><span>مشوي صدور</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب مشوي صدور', 110)">اطلب</button></div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=100" class="item-img" alt="كريب">
+                    <div class="item-details"><h4>بانيه</h4><span class="price">80 جنيه</span></div>
+                </div>
+                <button class="btn-add" onclick="addToCart('كريب بانيه', 80)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info"><div class="item-details"><h4>كرسبي</h4><span class="price">85 جنيه</span></div></div>
+                <button class="btn-add" onclick="addToCart('كريب كرسبي', 85)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info"><div class="item-details"><h4>زنجر</h4><span class="price">110 جنيه</span></div></div>
+                <button class="btn-add" onclick="addToCart('كريب زنجر', 110)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info"><div class="item-details"><h4>فاهيتا</h4><span class="price">110 جنيه</span></div></div>
+                <button class="btn-add" onclick="addToCart('كريب فاهيتا فراخ', 110)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info"><div class="item-details"><h4>شاورما فراخ</h4><span class="price">95 جنيه</span></div></div>
+                <button class="btn-add" onclick="addToCart('كريب شاورما فراخ', 95)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info"><div class="item-details"><h4>سوبر كرانشي</h4><span class="price">100 جنيه</span></div></div>
+                <button class="btn-add" onclick="addToCart('كريب سوبر كرانشي', 100)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info"><div class="item-details"><h4>شيش</h4><span class="price">100 جنيه</span></div></div>
+                <button class="btn-add" onclick="addToCart('كريب شيش', 100)">إضافة للسلة</button>
+            </div>
+            <div class="item">
+                <div class="item-info"><div class="item-details"><h4>مشوي صدور</h4><span class="price">110 جنيه</span></div></div>
+                <button class="btn-add" onclick="addToCart('كريب مشوي صدور', 110)">إضافة للسلة</button>
+            </div>
 
             <div class="sub-category">كريب لحوم</div>
-            <div class="item"><span>برجر</span> <span class="price">90 جنيه</span> <button class="btn-order" onclick="orderItem('كريب برجر', 90)">اطلب</button></div>
-            <div class="item"><span>كفته</span> <span class="price">90 جنيه</span> <button class="btn-order" onclick="orderItem('كريب كفته', 90)">اطلب</button></div>
-            <div class="item"><span>سوسيس</span> <span class="price">90 جنيه</span> <button class="btn-order" onclick="orderItem('كريب سوسيس', 90)">اطلب</button></div>
-            <div class="item"><span>شاورما لحمه</span> <span class="price">100 جنيه</span> <button class="btn-order" onclick="orderItem('كريب شاورما لحمه', 100)">اطلب</button></div>
-            <div class="item"><span>فاهيتا لحمه</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب فاهيتا لحمه', 110)">اطلب</button></div>
-            <div class="item"><span>سجق</span> <span class="price">90 جنيه</span> <button class="btn-order" onclick="orderItem('كريب سجق', 90)">اطلب</button></div>
-            <div class="item"><span>بسطرمه</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب بسطرمه', 110)">اطلب</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>برجر</h4><span class="price">90 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب برجر', 90)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>كفته</h4><span class="price">90 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب كفته', 90)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>سوسيس</h4><span class="price">90 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب سوسيس', 90)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>شاورما لحمه</h4><span class="price">100 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب شاورما لحمه', 100)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>فاهيتا لحمه</h4><span class="price">110 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب فاهيتا لحمه', 110)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>سجق</h4><span class="price">90 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب سجق', 90)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>بسطرمه</h4><span class="price">110 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب بسطرمه', 110)">إضافة للسلة</button></div>
 
             <div class="sub-category">كريب ميكسات</div>
-            <div class="item"><span>يوجى</span> <span class="price">150 جنيه</span> <button class="btn-order" onclick="orderItem('كريب يوجى', 150)">اطلب</button></div>
-            <div class="item"><span>قدوره</span> <span class="price">150 جنيه</span> <button class="btn-order" onclick="orderItem('كريب قدوره', 150)">اطلب</button></div>
-            <div class="item"><span>الجامد</span> <span class="price">140 جنيه</span> <button class="btn-order" onclick="orderItem('كريب الجامد', 140)">اطلب</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>يوجى</h4><span class="price">150 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب يوجى', 150)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>قدوره</h4><span class="price">150 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب قدوره', 150)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>الجامد</h4><span class="price">140 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب الجامد', 140)">إضافة للسلة</button></div>
 
             <div class="sub-category">كريب الجبن</div>
-            <div class="item"><span>ميكس جبن</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب ميكس جبن', 110)">اطلب</button></div>
-            <div class="item"><span>بطاطس</span> <span class="price">50 جنيه</span> <button class="btn-order" onclick="orderItem('كريب بطاطس', 50)">اطلب</button></div>
-            <div class="item"><span>مشروم</span> <span class="price">80 جنيه</span> <button class="btn-order" onclick="orderItem('كريب مشروم', 80)">اطلب</button></div>
-            <div class="item"><span>رومي</span> <span class="price">80 جنيه</span> <button class="btn-order" onclick="orderItem('كريب رومي', 80)">اطلب</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>ميكس جبن</h4><span class="price">110 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب ميكس جبن', 110)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>بطاطس</h4><span class="price">50 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب بطاطس', 50)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>مشروم</h4><span class="price">80 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب مشروم', 80)">إضافة للسلة</button></div>
+            <div class="item"><div class="item-info"><div class="item-details"><h4>رومي</h4><span class="price">80 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب رومي', 80)">إضافة للسلة</button></div>
+        </div>
+
+        <!-- 4. قسم البيتزا والفطائر (مبدئي لحد ما تبعت أصنافهم) -->
+        <div id="other" class="category-section">
+            <h2>🍕 البيتزا والفطائر <button class="back-btn" onclick="goHome()">رجوع للأقسام</button></h2>
+            <p style="color: #666; padding: 20px;">قريباً سيتم إضافة أصناف البيتزا والفطائر هنا بناءً على طلبك!</p>
         </div>
 
     </div>
 
+    <!-- شريط سلة المشتريات العائم -->
+    <div class="cart-box">
+        <div class="cart-info" id="cartSummary">السلة فارغة (0 أصناف) - 0 جنيه</div>
+        <button class="btn-checkout" onclick="checkoutWhatsApp()">إرسال الطلب للواتساب 📲</button>
+    </div>
+
     <script>
-        function orderItem(itemName, itemPrice) {
+        let cart = [];
+
+        function openCategory(catId) {
+            document.getElementById('homeScreen').style.display = 'none';
+            let sections = document.querySelectorAll('.category-section');
+            sections.forEach(sec => sec.style.display = 'none');
+            document.getElementById(catId).style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function goHome() {
+            let sections = document.querySelectorAll('.category-section');
+            sections.forEach(sec => sec.style.display = 'none');
+            document.getElementById('homeScreen').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name: name, price: price });
+            updateCartUI();
+            
+            // تأثير بصري بسيط عند الإضافة
+            event.target.innerText = "تمت الإضافة ✓";
+            event.target.style.background = "#d9534f";
+            setTimeout(() => {
+                event.target.innerText = "إضافة للسلة";
+                event.target.style.background = "#27ae60";
+            }, 1000);
+        }
+
+        function updateCartUI() {
+            let totalCount = cart.length;
+            let totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cartSummary').innerText = `المجموع: ${totalCount} أصناف (${totalPrice} جنيه)`;
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("السلة فارغة، اختر بعض الأصناف أولاً!");
+                return;
+            }
+
             let phone = "201146027279";
-            let message = "مرحباً، أبدأ طلب: " + itemName + " بسعر " + itemPrice + " جنيه.";
-            let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+            let message = "مرحباً، أود طلب الأوريجن التالية:%0a";
+            let totalPrice = 0;
+
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} - ${item.price} جنيه%0a`;
+                totalPrice += item.price;
+            });
+
+            message += `%0a💰 الإجمالي الكلي: ${totalPrice} جنيه`;
+
+            let url = `https://wa.me/${phone}?text=` + message;
             window.open(url, '_blank');
         }
     </script>

@@ -26,6 +26,7 @@
             background-color: var(--bg-black);
             color: var(--text-white);
             line-height: 1.6;
+            padding-bottom: 80px;
         }
 
         header {
@@ -215,7 +216,7 @@
                         <div class="item-desc">2 بيتزا كبير + 1 صواريخ مشكل + لتر كوكاكولا هدية.</div>
                         <div class="item-footer">
                             <span class="item-price">350 جـ</span>
-                            <button class="add-btn">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -225,7 +226,7 @@
                         <div class="item-desc">اشتري أي 2 بيتزا وسط واحصل على الثالثة مجاناً.</div>
                         <div class="item-footer">
                             <span class="item-price">260 جـ</span>
-                            <button class="add-btn">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -242,7 +243,7 @@
                         <div class="item-desc">خبز فرنسي طويل محشي شاورما دجاج، موتزاريلا، وصوص خاص.</div>
                         <div class="item-footer">
                             <span class="item-price">95 جـ</span>
-                            <button class="add-btn">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -252,7 +253,7 @@
                         <div class="item-desc">قطع دجاج كرسبي حارة، صوص الشيدر، وطماطم وخس مقرمش.</div>
                         <div class="item-footer">
                             <span class="item-price">105 جـ</span>
-                            <button class="add-btn">إضافة للسلة</button>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
                         </div>
                     </div>
                 </div>
@@ -260,4 +261,144 @@
         </div>
 
         <!-- 3. البيتزا -->
-        <div
+        <div id="pizza" class="menu-section">
+            <div class="section-title">🍕 البيتزا</div>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="item-info">
+                        <div class="item-title">بيتزا بيبروني وسط</div>
+                        <div class="item-desc">صوص طماطم، جبن موتزاريلا، وشرائح بيبروني ممتازة.</div>
+                        <div class="item-footer">
+                            <span class="item-price">120 جـ</span>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <div class="item-info">
+                        <div class="item-title">بيتزا رويال مشكل جبن</div>
+                        <div class="item-desc">موتزاريلا، رومي، شيدر، وجبن بلو تشيز فاخر.</div>
+                        <div class="item-footer">
+                            <span class="item-price">130 جـ</span>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. الفطائر -->
+        <div id="pies" class="menu-section">
+            <div class="section-title">🥧 الفطائر</div>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="item-info">
+                        <div class="item-title">فطيرة شرقي مشكل لحوم</div>
+                        <div class="item-desc">بسطرمة، سوسيس، مفروم، وموتزاريلا مع طبقات عجينة مورقة.</div>
+                        <div class="item-footer">
+                            <span class="item-price">140 جـ</span>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. الطواجن -->
+        <div id="tagines" class="menu-section">
+            <div class="section-title">🥘 الطواجن</div>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="item-info">
+                        <div class="item-title">طاجن لحمة بصل</div>
+                        <div class="item-desc">قطع لحم طري محمرة بالبصل المقمل والتوابل الشرقية في الفرن.</div>
+                        <div class="item-footer">
+                            <span class="item-price">160 جـ</span>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. الكشري -->
+        <div id="koshary" class="menu-section">
+            <div class="section-title">🍛 الكشري</div>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="item-info">
+                        <div class="item-title">كشري قدورة الملكي</div>
+                        <div class="item-desc">أرز، مكرونة، عدس، حمص، بصل مقرمش، مع الصلصة والدقة والشطة.</div>
+                        <div class="item-footer">
+                            <span class="item-price">45 جـ</span>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. الكريب -->
+        <div id="crepe" class="menu-section">
+            <div class="section-title">🌯 الكريب</div>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="item-info">
+                        <div class="item-title">كريب استربس دجاج</div>
+                        <div class="item-desc">أصابع استربس مقرمشة، صوص رانش، وموتزاريلا سايحة.</div>
+                        <div class="item-footer">
+                            <span class="item-price">85 جـ</span>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. المشروبات -->
+        <div id="drinks" class="menu-section">
+            <div class="section-title">🥤 المشروبات</div>
+            <div class="menu-grid">
+                <div class="item-card">
+                    <div class="item-info">
+                        <div class="item-title">كنز كوكاكولا / برتقال</div>
+                        <div class="item-desc">علبة باردة ومنعشة.</div>
+                        <div class="item-footer">
+                            <span class="item-price">15 جـ</span>
+                            <button class="add-btn" onclick="addToCart()">إضافة للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- السلة العائمة -->
+    <div class="cart-float" onclick="alert('سلة المشتريات جاهزة لاستقبال طلبات العملاء!')">
+        🛒 سلة المشتريات (<span id="cart-count">0</span>)
+    </div>
+
+    <script>
+        // دالة تبديل الأقسام
+        function switchCategory(sectionId, btnElement) {
+            const sections = document.querySelectorAll('.menu-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(sectionId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        // دالة إضافة منتج للسلة
+        let cartItemsCount = 0;
+        function addToCart() {
+            cartItemsCount++;
+            document.getElementById('cart-count').innerText = cartItemsCount;
+        }
+    </script>
+
+</body>
+</html>

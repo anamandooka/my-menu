@@ -80,7 +80,7 @@
 
     <div class="container">
 
-        <!-- الشاشة الرئيسية -->
+        <!-- الشاشة الرئيسية (4 أقسام) -->
         <div id="homeScreen">
             <h2 style="color: #fff; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">اختر القسم المطلوب</h2>
             <div class="main-categories">
@@ -93,11 +93,9 @@
                 <div class="main-card" onclick="showSection('crepe')">
                     <h3>🌯 الكريب</h3>
                 </div>
-                <div class="main-card" onclick="showSection('other')">
-                    <h3>🍕 البيتزا والفطائر</h3>
-                </div>
                 <div class="main-card" onclick="showSection('drinks')">
-    <h3>🥤 المشروبات</h3>
+                    <h3>🥤 المشروبات</h3>
+                </div>
             </div>
         </div>
 
@@ -133,16 +131,8 @@
                 </div>
                 <button class="btn-add" onclick="addItem('علبة كشري (50ج)', 50)">إضافة</button>
             </div>
-        <div class="item">
-    <div class="item-info">
-        <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=150" class="item-img" alt="طاجن">
-        <div class="item-details">
-            <h4>علبه كشرى </h4>
-            <span class="price">40 جنيه</span>
         </div>
-    </div>
-    <button class="btn-add" onclick="addItem('علبه كشرى', 40)">إضافة</button>
-</div>
+
         <!-- 2. قسم الطواجن -->
         <div id="tagines" class="category-section">
             <h2>🍲 قسم الطواجن <button class="back-btn" onclick="showHome()">رجوع</button></h2>
@@ -159,6 +149,13 @@
                     <div class="item-details"><h4>طاجن لحمه</h4><span class="price">45 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addItem('طاجن لحمه', 45)">إضافة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=150" class="item-img" alt="طاجن">
+                    <div class="item-details"><h4>طاجن موزاريلا فراخ</h4><span class="price">75 جنيه</span></div>
+                </div>
+                <button class="btn-add" onclick="addItem('طاجن موزاريلا فراخ', 75)">إضافة</button>
             </div>
         </div>
 
@@ -179,12 +176,39 @@
                 </div>
                 <button class="btn-add" onclick="addItem('كريب كرسبي', 85)">إضافة</button>
             </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=150" class="item-img" alt="كريب">
+                    <div class="item-details"><h4>كريب زنجر</h4><span class="price">110 جنيه</span></div>
+                </div>
+                <button class="btn-add" onclick="addItem('كريب زنجر', 110)">إضافة</button>
+            </div>
         </div>
 
-        <!-- 4. قسم البيتزا والفطائر -->
-        <div id="other" class="category-section">
-            <h2>🍕 البيتزا والفطائر <button class="back-btn" onclick="showHome()">رجوع</button></h2>
-            <p style="color: #666; padding: 20px;">قريباً سيتم إضافة أصناف البيتزا والفطائر هنا!</p>
+        <!-- 4. قسم المشروبات الجديد -->
+        <div id="drinks" class="category-section">
+            <h2>🥤 قسم المشروبات <button class="back-btn" onclick="showHome()">رجوع</button></h2>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=150" class="item-img" alt="مشروب">
+                    <div class="item-details"><h4>كانز كوكاكولا / بيبسي</h4><span class="price">15 جنيه</span></div>
+                </div>
+                <button class="btn-add" onclick="addItem('كانز كوكاكولا / بيبسي', 15)">إضافة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=150" class="item-img" alt="مشروب">
+                    <div class="item-details"><h4>مياه معدنية</h4><span class="price">8 جنيه</span></div>
+                </div>
+                <button class="btn-add" onclick="addItem('مياه معدنية', 8)">إضافة</button>
+            </div>
+            <div class="item">
+                <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=150" class="item-img" alt="مشروب">
+                    <div class="item-details"><h4>عصير مانجو فريش</h4><span class="price">25 جنيه</span></div>
+                </div>
+                <button class="btn-add" onclick="addItem('عصير مانجو فريش', 25)">إضافة</button>
+            </div>
         </div>
 
     </div>
@@ -206,7 +230,7 @@
             
             <div class="form-group">
                 <label>👤 اسم العميل:</label>
-                <input type="text" id="custName" placeholder="اكتب اسمك">
+                <input type="text" id="custName" placeholder="اكتب اسمك الكريم">
             </div>
             <div class="form-group">
                 <label>📍 العنوان بالتفصيل:</label>
@@ -214,7 +238,7 @@
             </div>
             <div class="form-group">
                 <label>📞 رقم الموبايل:</label>
-                <input type="tel" id="custPhone" placeholder="رقم الهاتف">
+                <input type="tel" id="custPhone" placeholder="رقم الهاتف للتواصل">
             </div>
 
             <div class="modal-buttons">
@@ -318,12 +342,4 @@
                 msg += "- " + myCart[i].name + " (" + myCart[i].price + " جنيه)%0a";
                 total += myCart[i].price;
             }
-            msg += "%0a💰 *الإجمالي الكلي:* " + total + " جنيه";
-
-            let url = "https://wa.me/" + restPhone + "?text=" + msg;
-            window.open(url, '_blank');
-        }
-    </script>
-
-</body>
-</html>
+            msg += "%0a💰 *الإجمالي الكلي:*

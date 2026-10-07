@@ -2,13 +2,102 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>موقع المطعم - قريباً</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منيو المطعم</title>
     <style>
-        body { font-family: Tahoma, sans-serif; text-align: center; padding-top: 100px; background: #f9f9f9; color: #333; }
-        h1 { color: #d9534f; }
+        body { font-family: Tahoma, sans-serif; background: #f8f9fa; color: #333; margin: 0; padding: 0; text-align: center; }
+        header { background: #d9534f; color: white; padding: 20px; font-size: 24px; font-weight: bold; }
+        .container { max-width: 800px; margin: 20px auto; padding: 10px; }
+        .category { background: white; margin: 15px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: right; }
+        .category h2 { color: #d9534f; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 5px; }
+        .sub-category { margin: 10px 0; font-weight: bold; color: #444; background: #f1f1f1; padding: 5px 10px; border-radius: 4px; }
+        .item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #ddd; }
+        .item:last-child { border-bottom: none; }
+        .price { color: #27ae60; font-weight: bold; margin-left: 10px; }
+        .btn-order { background: #25d366; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .btn-order:hover { background: #1ebe5d; }
     </style>
 </head>
 <body>
-    <h1>🍽️ انتظرونا، المنيو الجديد هيفتح هنا قريباً!</h1>
-    <p>جاري تجهيز أحلى الأكلات والدليفري.</p>
+
+    <header>🍽️ منيو المطعم 🍽️</header>
+
+    <div class="container">
+
+        <!-- قسم الكشري -->
+        <div class="category">
+            <h2>🍜 قسم الكشري</h2>
+            <div class="sub-category">علب الكشري</div>
+            <div class="item"><span>علبة كشري</span> <span class="price">20 جنيه</span> <button class="btn-order" onclick="orderItem('علبة كشري', 20)">اطلب</button></div>
+            <div class="item"><span>علبة كشري</span> <span class="price">25 جنيه</span> <button class="btn-order" onclick="orderItem('علبة كشري', 25)">اطلب</button></div>
+            <div class="item"><span>علبة كشري</span> <span class="price">30 جنيه</span> <button class="btn-order" onclick="orderItem('علبة كشري', 30)">اطلب</button></div>
+            <div class="item"><span>علبة كشري</span> <span class="price">40 جنيه</span> <button class="btn-order" onclick="orderItem('علبة كشري', 40)">اطلب</button></div>
+            <div class="item"><span>علبة كشري</span> <span class="price">50 جنيه</span> <button class="btn-order" onclick="orderItem('علبة كشري', 50)">اطلب</button></div>
+
+            <div class="sub-category">الحلو</div>
+            <div class="item"><span>رز بلبن عادى</span> <span class="price">15 جنيه</span> <button class="btn-order" onclick="orderItem('رز بلبن عادى', 15)">اطلب</button></div>
+            <div class="item"><span>رز بلبن فرن</span> <span class="price">20 جنيه</span> <button class="btn-order" onclick="orderItem('رز بلبن فرن', 20)">اطلب</button></div>
+
+            <div class="sub-category">الإضافات</div>
+            <div class="item"><span>خيار مخلل</span> <span class="price">10 جنيه</span> <button class="btn-order" onclick="orderItem('خيار مخلل', 10)">اطلب</button></div>
+            <div class="item"><span>عدس / تقلية / حمص / صلصة (للسلطة)</span> <span class="price">12 جنيه</span> <button class="btn-order" onclick="orderItem('إضافة كشري', 12)">اطلب</button></div>
+            <div class="item"><span>سلطة خضرا / عيش توست / دقة / دقة طماطم</span> <span class="price">10 جنيه</span> <button class="btn-order" onclick="orderItem('إضافة كشري', 10)">اطلب</button></div>
+        </div>
+
+        <!-- قسم الطواجن -->
+        <div class="category">
+            <h2>🍲 قسم الطواجن</h2>
+            <div class="item"><span>طاجن فراخ</span> <span class="price">50 جنيه</span> <button class="btn-order" onclick="orderItem('طاجن فراخ', 50)">اطلب</button></div>
+            <div class="item"><span>طاجن لحمه</span> <span class="price">45 جنيه</span> <button class="btn-order" onclick="orderItem('طاجن لحمه', 45)">اطلب</button></div>
+            <div class="item"><span>طاجن موزاريلا فراخ</span> <span class="price">75 جنيه</span> <button class="btn-order" onclick="orderItem('طاجن موزاريلا فراخ', 75)">اطلب</button></div>
+            <div class="item"><span>طاجن موزاريلا لحمه</span> <span class="price">70 جنيه</span> <button class="btn-order" onclick="orderItem('طاجن موزاريلا لحمه', 70)">اطلب</button></div>
+        </div>
+
+        <!-- قسم الكريب -->
+        <div class="category">
+            <h2>🌯 قسم الكريب</h2>
+            
+            <div class="sub-category">كريب فراخ</div>
+            <div class="item"><span>بانيه</span> <span class="price">80 جنيه</span> <button class="btn-order" onclick="orderItem('كريب بانيه', 80)">اطلب</button></div>
+            <div class="item"><span>كرسبي</span> <span class="price">85 جنيه</span> <button class="btn-order" onclick="orderItem('كريب كرسبي', 85)">اطلب</button></div>
+            <div class="item"><span>زنجر</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب زنجر', 110)">اطلب</button></div>
+            <div class="item"><span>فاهيتا</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب فاهيتا فراخ', 110)">اطلب</button></div>
+            <div class="item"><span>شاورما فراخ</span> <span class="price">95 جنيه</span> <button class="btn-order" onclick="orderItem('كريب شاورما فراخ', 95)">اطلب</button></div>
+            <div class="item"><span>سوبر كرانشي</span> <span class="price">100 جنيه</span> <button class="btn-order" onclick="orderItem('كريب سوبر كرانشي', 100)">اطلب</button></div>
+            <div class="item"><span>شيش</span> <span class="price">100 جنيه</span> <button class="btn-order" onclick="orderItem('كريب شيش', 100)">اطلب</button></div>
+            <div class="item"><span>مشوي صدور</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب مشوي صدور', 110)">اطلب</button></div>
+
+            <div class="sub-category">كريب لحوم</div>
+            <div class="item"><span>برجر</span> <span class="price">90 جنيه</span> <button class="btn-order" onclick="orderItem('كريب برجر', 90)">اطلب</button></div>
+            <div class="item"><span>كفته</span> <span class="price">90 جنيه</span> <button class="btn-order" onclick="orderItem('كريب كفته', 90)">اطلب</button></div>
+            <div class="item"><span>سوسيس</span> <span class="price">90 جنيه</span> <button class="btn-order" onclick="orderItem('كريب سوسيس', 90)">اطلب</button></div>
+            <div class="item"><span>شاورما لحمه</span> <span class="price">100 جنيه</span> <button class="btn-order" onclick="orderItem('كريب شاورما لحمه', 100)">اطلب</button></div>
+            <div class="item"><span>فاهيتا لحمه</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب فاهيتا لحمه', 110)">اطلب</button></div>
+            <div class="item"><span>سجق</span> <span class="price">90 جنيه</span> <button class="btn-order" onclick="orderItem('كريب سجق', 90)">اطلب</button></div>
+            <div class="item"><span>بسطرمه</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب بسطرمه', 110)">اطلب</button></div>
+
+            <div class="sub-category">كريب ميكسات</div>
+            <div class="item"><span>يوجى</span> <span class="price">150 جنيه</span> <button class="btn-order" onclick="orderItem('كريب يوجى', 150)">اطلب</button></div>
+            <div class="item"><span>قدوره</span> <span class="price">150 جنيه</span> <button class="btn-order" onclick="orderItem('كريب قدوره', 150)">اطلب</button></div>
+            <div class="item"><span>الجامد</span> <span class="price">140 جنيه</span> <button class="btn-order" onclick="orderItem('كريب الجامد', 140)">اطلب</button></div>
+
+            <div class="sub-category">كريب الجبن</div>
+            <div class="item"><span>ميكس جبن</span> <span class="price">110 جنيه</span> <button class="btn-order" onclick="orderItem('كريب ميكس جبن', 110)">اطلب</button></div>
+            <div class="item"><span>بطاطس</span> <span class="price">50 جنيه</span> <button class="btn-order" onclick="orderItem('كريب بطاطس', 50)">اطلب</button></div>
+            <div class="item"><span>مشروم</span> <span class="price">80 جنيه</span> <button class="btn-order" onclick="orderItem('كريب مشروم', 80)">اطلب</button></div>
+            <div class="item"><span>رومي</span> <span class="price">80 جنيه</span> <button class="btn-order" onclick="orderItem('كريب رومي', 80)">اطلب</button></div>
+        </div>
+
+    </div>
+
+    <script>
+        function orderItem(itemName, itemPrice) {
+            let phone = "201146027279";
+            let message = "مرحباً، أبدأ طلب: " + itemName + " بسعر " + itemPrice + " جنيه.";
+            let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+            window.open(url, '_blank');
+        }
+    </script>
+
 </body>
+</html>

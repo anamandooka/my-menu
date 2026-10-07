@@ -1,379 +1,2752 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مطعم قدورة</title>
-    <style>
-        * { box-sizing: border-box; }
-        body { 
-            font-family: Tahoma, sans-serif; 
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600') no-repeat center center fixed;
-            background-size: cover;
-            color: #333; 
-            margin: 0; 
-            padding: 0; 
-            text-align: center; 
-        }
-        header { 
-            background: #d9534f; 
-            color: white; 
-            padding: 20px; 
-            font-size: 24px; 
-            font-weight: bold; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .container { max-width: 800px; margin: 20px auto; padding: 10px 10px 90px 10px; }
-        
-        .main-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .main-card { 
-            background: #ffffff; 
-            padding: 25px 15px; 
-            border-radius: 12px; 
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3); 
-            cursor: pointer; 
-            transition: 0.3s; 
-            border-bottom: 4px solid #d9534f; 
-        }
-        .main-card:hover { transform: translateY(-5px); background: #fff5f5; }
-        .main-card h3 { margin: 0; color: #333; font-size: 18px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .category-section { display: none; background: #ffffff; margin: 15px 0; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); text-align: right; }
-        .category-section h2 { color: #d9534f; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-top: 5px; display: flex; justify-content: space-between; align-items: center; font-size: 20px; }
-        .back-btn { background: #6c757d; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 14px; }
-        .back-btn:hover { background: #5a6268; }
+<title>قدورة | مطعم قدورة</title>
+<meta name="description" content="مطعم قدورة - أكل مصري أصيل">
 
-        .sub-category { margin: 15px 0 8px 0; font-weight: bold; color: #444; background: #f1f1f1; padding: 8px 12px; border-radius: 6px; }
-        
-        .item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #ddd; }
-        .item:last-child { border-bottom: none; }
-        .item-info { display: flex; align-items: center; gap: 12px; }
-        .item-img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; background: #ddd; border: 1px solid #ccc; }
-        .item-details h4 { margin: 0 0 5px 0; font-size: 15px; color: #222; }
-        .price { color: #27ae60; font-weight: bold; font-size: 15px; }
-        
-        .btn-add { background: #27ae60; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 14px; }
-        .btn-add:hover { background: #219653; }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #222; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -4px 15px rgba(0,0,0,0.4); z-index: 1000; }
-        .cart-info { font-size: 15px; font-weight: bold; color: #fff; }
-        .btn-open-cart { background: #f39c12; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: bold; }
-        .btn-open-cart:hover { background: #e67e22; }
+html{
+    scroll-behavior:smooth;
+}
 
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow: auto; }
-        .modal-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 12px; width: 90%; max-width: 500px; text-align: right; box-shadow: 0 5px 20px rgba(0,0,0,0.4); }
-        .modal-content h3 { color: #d9534f; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; font-size: 14px; }
-        .form-group { margin: 12px 0; text-align: right; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; color: #444; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
-        .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-submit { background: #25d366; color: white; border: none; padding: 12px; flex: 1; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .btn-submit:hover { background: #1ebe5d; }
-        .btn-close { background: #dc3545; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 16px; cursor: pointer; }
-        .remove-item { color: #dc3545; cursor: pointer; font-weight: bold; margin-right: 10px; }
-    </style>
+body{
+    background:#111;
+    color:#fff;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+button{
+    font-family:inherit;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:999;
+    height:80px;
+    background:#111;
+    border-bottom:1px solid #222;
+}
+
+.header-inner{
+    max-width:1500px;
+    height:100%;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:900;
+    font-size:30px;
+    color:#fff;
+}
+
+.logo-main{
+    color:#fff;
+}
+
+.logo-accent{
+    color:#f2ad25;
+}
+
+.logo-small{
+    display:block;
+    font-size:11px;
+    color:#f2ad25;
+    text-align:center;
+    margin-top:-5px;
+}
+
+.nav{
+    display:flex;
+    align-items:center;
+    gap:35px;
+}
+
+.nav a{
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    padding:28px 4px 24px;
+    position:relative;
+    cursor:pointer;
+}
+
+.nav a.active,
+.nav a:hover{
+    color:#f3b528;
+}
+
+.nav a.active:after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    right:0;
+    left:0;
+    height:3px;
+    background:#f3b528;
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.icon-btn{
+    background:none;
+    border:0;
+    color:#fff;
+    font-size:23px;
+    cursor:pointer;
+    position:relative;
+}
+
+.cart-number{
+    position:absolute;
+    top:-8px;
+    right:-9px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:#e51d2a;
+    color:#fff;
+    font-size:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    position:relative;
+    height:430px;
+    overflow:hidden;
+    background:#222;
+}
+
+.hero-image{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        90deg,
+        rgba(0,0,0,.05),
+        rgba(0,0,0,.1)
+    );
+}
+
+.hero-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:5;
+    background:none;
+    border:0;
+    color:#fff;
+    font-size:45px;
+    cursor:pointer;
+    text-shadow:0 2px 5px #000;
+}
+
+.hero-arrow.right{
+    right:25px;
+}
+
+.hero-arrow.left{
+    left:25px;
+}
+
+.hero-dots{
+    position:absolute;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:7px;
+    z-index:5;
+}
+
+.dot{
+    width:8px;
+    height:8px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.7;
+}
+
+.dot.active{
+    opacity:1;
+}
+
+/* =========================
+   CATEGORY BAR
+========================= */
+
+.container{
+    max-width:1450px;
+    margin:auto;
+    padding:0 25px;
+}
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:18px;
+    padding:22px 0 10px;
+}
+
+.category-card{
+    background:#171717;
+    border:1px solid #333;
+    border-radius:18px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.category-card:hover{
+    transform:translateY(-5px);
+    border-color:#e5a921;
+}
+
+.category-image{
+    height:130px;
+    overflow:hidden;
+}
+
+.category-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.3s;
+}
+
+.category-card:hover img{
+    transform:scale(1.07);
+}
+
+.category-name{
+    padding:12px;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:35px 0 18px;
+}
+
+.section-title{
+    font-size:24px;
+    font-weight:900;
+    position:relative;
+    padding-bottom:10px;
+}
+
+.section-title:after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    right:0;
+    width:130px;
+    height:3px;
+    background:#f2ad25;
+}
+
+.section-title span{
+    margin-left:7px;
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:16px;
+}
+
+.product{
+    background:#151515;
+    border:1px solid #3b3b3b;
+    border-radius:15px;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.product:hover{
+    transform:translateY(-4px);
+    border-color:#e6a825;
+}
+
+.product-image{
+    height:185px;
+    background:#222;
+    overflow:hidden;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.product-body{
+    padding:13px;
+}
+
+.product-name{
+    font-size:17px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.product-description{
+    color:#aaa;
+    font-size:12px;
+    min-height:32px;
+    margin-bottom:8px;
+}
+
+.product-price{
+    color:#f3b528;
+    font-size:19px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.add-btn{
+    width:100%;
+    background:#e5222b;
+    color:#fff;
+    border:0;
+    border-radius:9px;
+    padding:10px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.add-btn:hover{
+    background:#c81820;
+}
+
+/* =========================
+   SIZES
+========================= */
+
+.size-buttons{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:5px;
+    margin-top:8px;
+}
+
+.size-btn{
+    background:#222;
+    color:#fff;
+    border:1px solid #444;
+    border-radius:7px;
+    padding:6px 3px;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.size-btn:hover{
+    border-color:#e7a923;
+    color:#e7a923;
+}
+
+/* =========================
+   CART
+========================= */
+
+.cart-panel{
+    position:fixed;
+    top:0;
+    left:-430px;
+    width:410px;
+    max-width:95%;
+    height:100vh;
+    background:#181818;
+    z-index:2000;
+    box-shadow:5px 0 30px #000;
+    transition:.3s;
+    display:flex;
+    flex-direction:column;
+}
+
+.cart-panel.open{
+    left:0;
+}
+
+.cart-header{
+    padding:20px;
+    border-bottom:1px solid #333;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.close{
+    background:none;
+    border:0;
+    color:#fff;
+    font-size:27px;
+    cursor:pointer;
+}
+
+.cart-content{
+    flex:1;
+    overflow:auto;
+    padding:15px;
+}
+
+.cart-item{
+    padding:13px 0;
+    border-bottom:1px solid #333;
+}
+
+.cart-item-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.cart-item-name{
+    font-weight:bold;
+}
+
+.cart-item-price{
+    color:#f3b528;
+}
+
+.cart-controls{
+    margin-top:9px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.qty-btn{
+    width:29px;
+    height:29px;
+    border:0;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.delete-btn{
+    background:#8d171d;
+    color:#fff;
+}
+
+.cart-footer{
+    border-top:1px solid #333;
+    padding:18px;
+}
+
+.total-line{
+    display:flex;
+    justify-content:space-between;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.total-value{
+    color:#f3b528;
+}
+
+.checkout-btn{
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:14px;
+    background:#e5222b;
+    color:#fff;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* =========================
+   CHECKOUT
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#000b;
+    z-index:3000;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+}
+
+.modal.open{
+    display:flex;
+}
+
+.modal-box{
+    background:#181818;
+    width:600px;
+    max-width:100%;
+    max-height:95vh;
+    overflow:auto;
+    border-radius:18px;
+    padding:25px;
+    border:1px solid #333;
+}
+
+.modal-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    background:#242424;
+    color:#fff;
+    border:1px solid #444;
+    border-radius:8px;
+    padding:12px;
+    outline:none;
+    font-family:inherit;
+}
+
+.form-group textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.delivery-info{
+    background:#211f15;
+    border:1px solid #725c20;
+    color:#f3cf67;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:15px;
+}
+
+.final-total{
+    display:flex;
+    justify-content:space-between;
+    font-size:22px;
+    font-weight:bold;
+    padding:15px 0;
+}
+
+.confirm-btn{
+    width:100%;
+    padding:14px;
+    border:0;
+    background:#25d366;
+    color:#fff;
+    font-size:17px;
+    border-radius:9px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    margin-top:60px;
+    background:#0b0b0b;
+    border-top:1px solid #292929;
+    padding:25px;
+}
+
+.footer-inner{
+    max-width:1450px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.footer-brand{
+    color:#f3b528;
+    font-weight:bold;
+}
+
+.footer-item{
+    color:#ddd;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:1100px){
+
+    .nav{
+        gap:15px;
+    }
+
+    .nav a{
+        font-size:13px;
+    }
+
+    .categories{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .products{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:750px){
+
+    .header{
+        height:65px;
+    }
+
+    .header-inner{
+        padding:0 12px;
+    }
+
+    .logo{
+        font-size:23px;
+    }
+
+    .nav{
+        display:none;
+    }
+
+    .mobile-menu{
+        display:block;
+        background:none;
+        color:#fff;
+        border:0;
+        font-size:25px;
+    }
+
+    .header-actions{
+        gap:10px;
+    }
+
+    .hero{
+        height:260px;
+    }
+
+    .hero-arrow{
+        font-size:32px;
+    }
+
+    .container{
+        padding:0 10px;
+    }
+
+    .categories{
+        display:flex;
+        overflow-x:auto;
+        gap:10px;
+        padding:15px 0;
+    }
+
+    .category-card{
+        min-width:135px;
+    }
+
+    .category-image{
+        height:90px;
+    }
+
+    .category-name{
+        font-size:14px;
+    }
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .product-image{
+        height:140px;
+    }
+
+    .product-body{
+        padding:9px;
+    }
+
+    .product-name{
+        font-size:14px;
+    }
+
+    .product-price{
+        font-size:16px;
+    }
+
+    .add-btn{
+        font-size:12px;
+        padding:9px 4px;
+    }
+
+    .section-title{
+        font-size:19px;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+@media(max-width:420px){
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .product-image{
+        height:120px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <header>🍽 مطعم قدورة 🍽️</header>
+<!-- =========================
+     HEADER
+========================= -->
 
-    <div class="container">
+<header class="header">
 
-        <!-- الشاشة الرئيسية -->
-        <div id="homeScreen" style="display: block;">
-            <h2 style="color: #fff; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">اختر القسم المطلوب</h2>
-            <div class="main-categories">
-                <div class="main-card" onclick="openCat('kosharySection')">
-                    <h3>🍜 الكشري</h3>
-                </div>
-                <div class="main-card" onclick="openCat('taginesSection')">
-                    <h3>🍲 الطواجن</h3>
-                </div>
-                <div class="main-card" onclick="openCat('crepeSection')">
-                    <h3>🌯 الكريب</h3>
-                </div>
-                <div class="main-card" onclick="openCat('drinksSection')">
-                    <h3>🥤 المشروبات</h3>
-                </div>
-            </div>
+<div class="header-inner">
+
+<button class="mobile-menu" onclick="toggleMobileMenu()">☰</button>
+
+<div class="logo">
+    <div>
+        <div>
+            <span class="logo-main">قد</span><span class="logo-accent">ورة</span>
         </div>
-
-        <!-- 1. قسم الكشري -->
-        <div id="kosharySection" class="category-section">
-            <h2>🍜 قسم الكشري <button class="back-btn" onclick="goBackHome()">رجوع</button></h2>
-            
-            <div class="sub-category">علب الكشري</div>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=150" class="item-img" alt="كشري">
-                    <div class="item-details"><h4>علبة كشري (20ج)</h4><span class="price">20 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('علبة كشري (20ج)', 20)">إضافة</button>
-            </div>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=150" class="item-img" alt="كشري">
-                    <div class="item-details"><h4>علبة كشري (25ج)</h4><span class="price">25 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('علبة كشري (25ج)', 25)">إضافة</button>
-            </div>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=150" class="item-img" alt="كشري">
-                    <div class="item-details"><h4>علبة كشري (30ج)</h4><span class="price">30 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('علبة كشري (30ج)', 30)">إضافة</button>
-            </div>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=150" class="item-img" alt="كشري">
-                    <div class="item-details"><h4>علبة كشري (40ج)</h4><span class="price">40 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('علبة كشري (40ج)', 40)">إضافة</button>
-            </div>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=150" class="item-img" alt="كشري">
-                    <div class="item-details"><h4>علبة كشري (50ج)</h4><span class="price">50 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('علبة كشري (50ج)', 50)">إضافة</button>
-            </div>
-
-            <div class="sub-category">الحلو</div>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=150" class="item-img" alt="رز بلبن">
-                    <div class="item-details"><h4>رز بلبن عادى</h4><span class="price">15 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('رز بلبن عادى', 15)">إضافة</button>
-            </div>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=150" class="item-img" alt="رز بلبن فرن">
-                    <div class="item-details"><h4>رز بلبن فرن</h4><span class="price">20 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('رز بلبن فرن', 20)">إضافة</button>
-            </div>
-
-            <div class="sub-category">الإضافات</div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>خيار مخلل</h4><span class="price">10 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('خيار مخلل', 10)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4> صلصة</h4><span class="price">12 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('إضافة (عدس/حمص..)', 12)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4> توست </h4><span class="price">10 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('إضافة (سلطة/دقة..)', 10)">إضافة</button></div>
-        </div>
-
-        <!-- 2. قسم الطواجن -->
-        <div id="taginesSection" class="category-section">
-            <h2>🍲 قسم الطواجن <button class="back-btn" onclick="goBackHome()">رجوع</button></h2>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=150" class="item-img" alt="طاجن">
-                    <div class="item-details"><h4>طاجن فراخ</h4><span class="price">50 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('طاجن فراخ', 50)">إضافة</button>
-            </div>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=150" class="item-img" alt="طاجن">
-                    <div class="item-details"><h4>طاجن لحمه</h4><span class="price">45 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('طاجن لحمه', 45)">إضافة</button>
-            </div>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=150" class="item-img" alt="طاجن">
-                    <div class="item-details"><h4>طاجن موزاريلا فراخ</h4><span class="price">75 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('طاجن موزاريلا فراخ', 75)">إضافة</button>
-            </div>
-            <div class="item">
-                <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=150" class="item-img" alt="طاجن">
-                    <div class="item-details"><h4>طاجن موزاريلا لحمه</h4><span class="price">70 جنيه</span></div>
-                </div>
-                <button class="btn-add" onclick="addItemToCart('طاجن موزاريلا لحمه', 70)">إضافة</button>
-            </div>
-        </div>
-
-        <!-- 3. قسم الكريب -->
-        <div id="crepeSection" class="category-section">
-            <h2>🌯 قسم الكريب <button class="back-btn" onclick="goBackHome()">رجوع</button></h2>
-            
-            <div class="sub-category">كريب فراخ</div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>بانيه</h4><span class="price">80 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب بانيه', 80)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>كرسبي</h4><span class="price">85 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب كرسبي', 85)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>زنجر</h4><span class="price">110 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب زنجر', 110)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>فاهيتا</h4><span class="price">110 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب فاهيتا', 110)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>شاورما فراخ</h4><span class="price">95 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب شاورما فراخ', 95)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>سوبر كرانشي</h4><span class="price">100 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب سوبر كرانشي', 100)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>شيش</h4><span class="price">100 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب شيش', 100)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>مشوي صدور</h4><span class="price">110 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب مشوي صدور', 110)">إضافة</button></div>
-
-            <div class="sub-category">كريب لحوم</div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>برجر</h4><span class="price">90 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب برجر', 90)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>كفته</h4><span class="price">90 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب كفته', 90)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>سوسيس</h4><span class="price">90 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب سوسيس', 90)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>شاورما لحمه</h4><span class="price">100 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب شاورما لحمه', 100)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>فاهيتا لحمه</h4><span class="price">110 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب فاهيتا لحمه', 110)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>سجق</h4><span class="price">90 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب سجق', 90)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>بسطرمه</h4><span class="price">110 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب بسطرمه', 110)">إضافة</button></div>
-
-            <div class="sub-category">كريب ميكسات وجبن</div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>يوجى</h4><span class="price">150 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب يوجى', 150)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>قدوره</h4><span class="price">150 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب قدوره', 150)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>الجامد</h4><span class="price">140 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب الجامد', 140)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>ميكس جبن</h4><span class="price">110 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب ميكس جبن', 110)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>بطاطس</h4><span class="price">50 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كريب بطاطس', 50)">إضافة</button></div>
-        </div>
-
-        <!-- 4. قسم المشروبات -->
-        <div id="drinksSection" class="category-section">
-            <h2>🥤 قسم المشروبات <button class="back-btn" onclick="goBackHome()">رجوع</button></h2>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>كانز كوكاكولا / بيبسي</h4><span class="price">20 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('كانز كوكاكولا / بيبسي', 20)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>مياه معدنية</h4><span class="price">10 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('مياه معدنية', 10)">إضافة</button></div>
-            <div class="item"><div class="item-info"><div class="item-details"><h4>بيبسى لتر</h4><span class="price">40 جنيه</span></div></div><button class="btn-add" onclick="addItemToCart('بيبسى لتر', 40)">إضافة</button></div>
-        </div>
-
+        <span class="logo-small">مطعم قدورة</span>
     </div>
+</div>
 
-    <!-- شريط السلة العائم -->
-    <div class="cart-bar">
-        <div class="cart-info" id="cartSummary">السلة فارغة (0 أصناف) - 0 جنيه</div>
-        <button class="btn-open-cart" onclick="openCartModal()">🛒 السلة والطلب</button>
-    </div>
+<nav class="nav" id="nav">
 
-    <!-- نافذة السلة -->
-    <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <h3>🛒 سلة المشتريات والبيانات</h3>
-            <div id="cartItemsList" style="max-height: 150px; overflow-y: auto; margin-bottom: 15px;">
-                <p style="color: #777; text-align: center;">السلة فارغة</p>
-            </div>
-            <div style="font-weight: bold; text-align: left; margin-bottom: 15px; font-size: 16px;" id="modalTotalPrice">الإجمالي: 0 جنيه</div>
-            
-            <div class="form-group">
-                <label>👤 اسم العميل:</label>
-                <input type="text" id="custName" placeholder="اكتب اسمك الكريم">
-            </div>
-            <div class="form-group">
-                <label>📍 العنوان بالتفصيل:</label>
-                <input type="text" id="custAddress" placeholder="المدينة، الشارع، رقم الحائط">
-            </div>
-            <div class="form-group">
-                <label>📞 رقم الموبايل:</label>
-                <input type="tel" id="custPhone" placeholder="رقم الهاتف للتواصل">
-            </div>
+<a class="active" onclick="showCategory('all')">الرئيسية</a>
+<a onclick="showCategory('كشرى')">كشرى</a>
+<a onclick="showCategory('طواجن')">طواجن</a>
+<a onclick="showCategory('بيتزا')">بيتزا</a>
+<a onclick="showCategory('كريب')">كريب</a>
+<a onclick="showCategory('الصواريخ')">الصواريخ</a>
+<a onclick="showCategory('المشروبات')">المشروبات</a>
+<a onclick="showCategory('العروض')">العروض</a>
+<a onclick="showCategory('الجديد')">الجديد</a>
 
-            <div class="modal-buttons">
-                <button class="btn-submit" onclick="sendOrderWhatsApp()">إرسال الطلب للواتساب 📲</button>
-                <button class="btn-close" onclick="closeCartModal()">إغلاق</button>
-            </div>
-        </div>
-    </div>
+</nav>
 
-    <script>
-        let shoppingCart = [];
+<div class="header-actions">
 
-        function openCat(sectionId) {
-            document.getElementById('homeScreen').style.display = 'none';
-            let allSections = document.getElementsByClassName('category-section');
-            for (let i = 0; i < allSections.length; i++) {
-                allSections[i].style.display = 'none';
-            }
-            let targetSec = document.getElementById(sectionId);
-            if (targetSec) {
-                targetSec.style.display = 'block';
-            }
-            window.scrollTo(0, 0);
-        }
+<button class="icon-btn" onclick="openSearch()">⌕</button>
 
-        function goBackHome() {
-            let allSections = document.getElementsByClassName('category-section');
-            for (let i = 0; i < allSections.length; i++) {
-                allSections[i].style.display = 'none';
-            }
-            document.getElementById('homeScreen').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
+<button class="icon-btn" onclick="openCart()">
+    🛒
+    <span class="cart-number" id="cartCount">0</span>
+</button>
 
-        function addItemToCart(name, price) {
-            shoppingCart.push({ name: name, price: price });
-            updateCartSummary();
-            alert("تمت إضافة " + name + " للسلة بنجاح!");
-        }
+</div>
 
-        function removeCartItem(index) {
-            shoppingCart.splice(index, 1);
-            updateCartSummary();
-            openCartModal();
-        }
+</div>
 
-        function updateCartSummary() {
-            let count = shoppingCart.length;
-            let total = 0;
-            for (let i = 0; i < shoppingCart.length; i++) {
-                total += shoppingCart[i].price;
-            }
-            document.getElementById('cartSummary').innerText = "السلة: " + count + " أصناف (" + total + " جنيه)";
-        }
+</header>
 
-        function openCartModal() {
-            let listDiv = document.getElementById('cartItemsList');
-            let totalDiv = document.getElementById('modalTotalPrice');
-            
-            if (shoppingCart.length === 0) {
-                listDiv.innerHTML = '<p style="color: #777; text-align: center;">السلة فارغة حالياً</p>';
-                totalDiv.innerText = 'الإجمالي: 0 جنيه';
-            } else {
-                let html = '';
-                let total = 0;
-                for (let i = 0; i < shoppingCart.length; i++) {
-                    html += '<div class="cart-item-row"><span>' + (i + 1) + '. ' + shoppingCart[i].name + ' - <b>' + shoppingCart[i].price + ' جنيه</b></span><span class="remove-item" onclick="removeCartItem(' + i + ')">حذف ❌</span></div>';
-                    total += shoppingCart[i].price;
-                }
-                listDiv.innerHTML = html;
-                totalDiv.innerText = 'الإجمالي الكلي: ' + total + ' جنيه';
-            }
-            document.getElementById('cartModal').style.display = 'block';
-        }
 
-        function closeCartModal() {
-            document.getElementById('cartModal').style.display = 'none';
-        }
+<!-- =========================
+     HERO
+========================= -->
 
-        function sendOrderWhatsApp() {
-            if (shoppingCart.length === 0) {
-                alert("السلة فارغة، اختر بعض الأصناف أولاً!");
-                return;
-            }
+<section class="hero">
 
-            let name = document.getElementById('custName').value.trim();
-            let address = document.getElementById('custAddress').value.trim();
-            let phone = document.getElementById('custPhone').value.trim();
+<img
+src="assets/kadoura-hero.png"
+class="hero-image"
+alt="قدورة - أكل مصري أصيل"
+>
 
-            if (!name || !address || !phone) {
-                alert("من فضلك أدخل (الاسم، العنوان، ورقم الهاتف) أولاً!");
-                return;
-            }
+<div class="hero-overlay"></div>
 
-            let restPhone = "201146027279";
-            let msg = "🚨 *طلب دليفري جديد من مطعم قدورة* 🚨%0a%0a";
-            msg += "👤 *الاسم:* " + name + "%0a";
-            msg += "📍 *العنوان:* " + address + "%0a";
-            msg += "📞 *الهاتف:* " + phone + "%0a%0a";
-            msg += "🛒 *الأصناف المطلوبة:*%0a";
+<button class="hero-arrow right">‹</button>
+<button class="hero-arrow left">›</button>
 
-            let total = 0;
-            for (let i = 0; i < shoppingCart.length; i++) {
-                msg += "- " + shoppingCart[i].name + " (" + shoppingCart[i].price + " جنيه)%0a";
-                total += shoppingCart[i].price;
-            }
-            msg += "%0a💰 *الإجمالي الكلي:* " + total + " جنيه";
+<div class="hero-dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
 
-            let url = "https://wa.me/" + restPhone + "?text=" + msg;
-            window.open(url, '_blank');
-        }
-    </script>
+</section>
+
+
+<!-- =========================
+     CONTENT
+========================= -->
+
+<main class="container">
+
+<!-- CATEGORY CARDS -->
+
+<section>
+
+<div class="categories">
+
+<div class="category-card" onclick="showCategory('كشرى')">
+<div class="category-image">
+<img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=700&q=80">
+</div>
+<div class="category-name">كشرى</div>
+</div>
+
+<div class="category-card" onclick="showCategory('طواجن')">
+<div class="category-image">
+<img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80">
+</div>
+<div class="category-name">طواجن</div>
+</div>
+
+<div class="category-card" onclick="showCategory('بيتزا')">
+<div class="category-image">
+<img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=700&q=80">
+</div>
+<div class="category-name">بيتزا</div>
+</div>
+
+<div class="category-card" onclick="showCategory('كريب')">
+<div class="category-image">
+<img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=700&q=80">
+</div>
+<div class="category-name">كريب</div>
+</div>
+
+<div class="category-card" onclick="showCategory('الصواريخ')">
+<div class="category-image">
+<img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=700&q=80">
+</div>
+<div class="category-name">الصواريخ</div>
+</div>
+
+<div class="category-card" onclick="showCategory('المشروبات')">
+<div class="category-image">
+<img src="https://images.unsplash.com/photo-1629203849820-fdd70d49c38e?auto=format&fit=crop&w=700&q=80">
+</div>
+<div class="category-name">المشروبات</div>
+</div>
+
+<div class="category-card" onclick="showCategory('العروض')">
+<div class="category-image">
+<img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=700&q=80">
+</div>
+<div class="category-name">العروض</div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     PRODUCTS
+========================= -->
+
+<div id="productsArea"></div>
+
+</main>
+
+
+<!-- =========================
+     CART
+========================= -->
+
+<aside class="cart-panel" id="cartPanel">
+
+<div class="cart-header">
+
+<h2>🛒 السلة</h2>
+
+<button class="close" onclick="closeCart()">×</button>
+
+</div>
+
+<div class="cart-content" id="cartItems"></div>
+
+<div class="cart-footer">
+
+<div class="total-line">
+<span>الإجمالي</span>
+<span class="total-value" id="cartTotal">0 ج.م</span>
+</div>
+
+<button class="checkout-btn" onclick="openCheckout()">
+إتمام الطلب
+</button>
+
+</div>
+
+</aside>
+
+
+<!-- =========================
+     CHECKOUT
+========================= -->
+
+<div class="modal" id="checkoutModal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+
+<h2>إتمام الطلب</h2>
+
+<button class="close" onclick="closeCheckout()">×</button>
+
+</div>
+
+<div class="delivery-info">
+🚚 مصاريف التوصيل حاليًا 0 جنيه.
+<br>
+يمكن تعديل سعر أي منطقة لاحقًا من الكود.
+</div>
+
+<form onsubmit="sendOrder(event)">
+
+<div class="form-group">
+
+<label>الاسم</label>
+
+<input
+id="customerName"
+required
+placeholder="اكتب اسمك"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>رقم الهاتف</label>
+
+<input
+id="customerPhone"
+required
+type="tel"
+placeholder="01xxxxxxxxx"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>منطقة التوصيل</label>
+
+<select id="deliveryArea" onchange="calculateFinalTotal()">
+
+<option value="فيصل" data-fee="0">فيصل - 0 جنيه</option>
+
+<option value="الهرم" data-fee="0">الهرم - 0 جنيه</option>
+
+<option value="الجيزة" data-fee="0">الجيزة - 0 جنيه</option>
+
+<option value="العمرانية" data-fee="0">العمرانية - 0 جنيه</option>
+
+<option value="أخرى" data-fee="0">منطقة أخرى - 0 جنيه</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>العنوان بالتفصيل</label>
+
+<textarea
+id="customerAddress"
+required
+placeholder="الشارع - العمارة - الدور - الشقة"
+></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>ملاحظات على الطلب</label>
+
+<textarea
+id="customerNotes"
+placeholder="مثال: بدون شطة، زيادة صوص..."
+></textarea>
+
+</div>
+
+
+<div class="final-total">
+
+<span>الإجمالي</span>
+
+<span
+id="finalTotal"
+class="total-value"
+>
+0 ج.م
+</span>
+
+</div>
+
+
+<button class="confirm-btn" type="submit">
+
+🟢 تأكيد الطلب وإرساله على واتساب
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+<div class="footer-inner">
+
+<div class="footer-item">
+📍 توصيل لجميع المناطق
+</div>
+
+<div class="footer-brand">
+جودة .. طعم مميز .. قدورة دايمًا قدورة
+</div>
+
+<div class="footer-item">
+📱 اطلب الآن عبر الواتساب
+</div>
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* ==================================================
+   إعدادات الموقع
+================================================== */
+
+/*
+    مهم جدًا:
+    اكتب رقم واتساب المطعم هنا.
+
+    مصر مثال:
+    201012345678
+
+    بدون +
+    وبدون مسافات.
+*/
+
+const WHATSAPP_NUMBER = "201000000000";
+
+
+/* ==================================================
+   صور المنتجات
+================================================== */
+
+const images = {
+
+koshary:
+"https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80",
+
+pizza:
+"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80",
+
+casserole:
+"https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+
+crepe:
+"https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80",
+
+drink:
+"https://images.unsplash.com/photo-1629203849820-fdd70d49c38e?auto=format&fit=crop&w=800&q=80",
+
+pie:
+"https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80"
+
+};
+
+
+/* ==================================================
+   المنيو
+================================================== */
+
+const menu = [
+
+/* ================= KOSHARY ================= */
+
+{
+category:"كشرى",
+name:"كشري صغير",
+price:20,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"كشري وسط",
+price:30,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"كشري كبير",
+price:40,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"كشري عائلي",
+price:50,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"بصل",
+price:12,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"حمص",
+price:12,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"عدس",
+price:12,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"صلصة",
+price:12,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"عيش توست",
+price:10,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"دقة",
+price:10,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"دقة طماطم",
+price:10,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"رز بلبن عادي",
+price:15,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"رز بلبن فرن",
+price:20,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"رز بلبن قشطة وعسل ومكسرات",
+price:25,
+image:images.koshary
+},
+
+{
+category:"كشرى",
+name:"رز بلبن فرن قشطة وعسل ومكسرات",
+price:30,
+image:images.koshary
+},
+
+
+/* ================= CASSEROLES ================= */
+
+{
+category:"طواجن",
+name:"طاجن فراخ",
+price:50,
+image:images.casserole
+},
+
+{
+category:"طواجن",
+name:"طاجن لحمة",
+price:45,
+image:images.casserole
+},
+
+{
+category:"طواجن",
+name:"طاجن موزاريلا وسط فراخ",
+price:65,
+image:images.casserole
+},
+
+{
+category:"طواجن",
+name:"طاجن موزاريلا كبير فراخ",
+price:75,
+image:images.casserole
+},
+
+{
+category:"طواجن",
+name:"طاجن موزاريلا وسط لحمة",
+price:60,
+image:images.casserole
+},
+
+{
+category:"طواجن",
+name:"طاجن موزاريلا كبير لحمة",
+price:70,
+image:images.casserole
+},
+
+{
+category:"طواجن",
+name:"طاجن ميكس فراخ",
+price:65,
+image:images.casserole
+},
+
+{
+category:"طواجن",
+name:"طاجن ميكس لحمة",
+price:55,
+image:images.casserole
+},
+
+{
+category:"طواجن",
+name:"إضافة فراخ",
+price:40,
+image:images.casserole
+},
+
+{
+category:"طواجن",
+name:"إضافة لحمة",
+price:30,
+image:images.casserole
+},
+
+
+/* ================= PIZZA ================= */
+
+{
+category:"بيتزا",
+name:"بيتزا مارجريتا - صغير",
+price:100,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"بيتزا مارجريتا - وسط",
+price:150,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"بيتزا مارجريتا - كبير",
+price:200,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"مكس جبن - صغير",
+price:140,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"مكس جبن - وسط",
+price:180,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"مكس جبن - كبير",
+price:250,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"كيري - صغير",
+price:140,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"كيري - وسط",
+price:180,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"كيري - كبير",
+price:250,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"خضروات - صغير",
+price:100,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"خضروات - وسط",
+price:150,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"خضروات - كبير",
+price:200,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تشيكن - صغير",
+price:125,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تشيكن - وسط",
+price:160,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تشيكن - كبير",
+price:230,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تشيكن بانيه - صغير",
+price:125,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تشيكن بانيه - وسط",
+price:160,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تشيكن بانيه - كبير",
+price:230,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تشيكن كرانشي - صغير",
+price:125,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تشيكن كرانشي - وسط",
+price:160,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تشيكن كرانشي - كبير",
+price:230,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سوبر سوبريم - صغير",
+price:140,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سوبر سوبريم - وسط",
+price:180,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سوبر سوبريم - كبير",
+price:250,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"لحمة - صغير",
+price:125,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"لحمة - وسط",
+price:160,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"لحمة - كبير",
+price:240,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"شاورما لحمة - صغير",
+price:125,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"شاورما لحمة - وسط",
+price:170,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"شاورما لحمة - كبير",
+price:240,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سجق - صغير",
+price:125,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سجق - وسط",
+price:160,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سجق - كبير",
+price:240,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سوسيس - صغير",
+price:125,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سوسيس - وسط",
+price:160,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سوسيس - كبير",
+price:240,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سلامي - صغير",
+price:125,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سلامي - وسط",
+price:170,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"سلامي - كبير",
+price:240,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"بسطرمة - صغير",
+price:130,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"بسطرمة - وسط",
+price:170,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"بسطرمة - كبير",
+price:240,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تونة - صغير",
+price:130,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تونة - وسط",
+price:180,
+image:images.pizza
+},
+
+{
+category:"بيتزا",
+name:"تونة - كبير",
+price:240,
+image:images.pizza
+},
+
+
+/* ================= CREPE ================= */
+
+{
+category:"كريب",
+name:"كريب بطاطس",
+price:50,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب مشروم",
+price:80,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب رومي",
+price:80,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب موتزاريلا",
+price:75,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب كيري",
+price:100,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب ميكس لبن",
+price:110,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب بانيه",
+price:80,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب بانيه حار",
+price:85,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب سوبر كرانشي",
+price:100,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب زنجر",
+price:110,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب تشيكن فاهيتا",
+price:110,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب شيش طاووق",
+price:100,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب مشوي صدور",
+price:110,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب تشيكن فرايداي",
+price:110,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب شاورما دجاج",
+price:95,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب برجر",
+price:90,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب كفتة مشوي",
+price:90,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب هوت دوج",
+price:90,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب شاورما لحمه",
+price:100,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب فاهيتا لحمه",
+price:110,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب سجق اسكندراني",
+price:90,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب بسطرمه",
+price:110,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب سلامي",
+price:100,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب ميكس دجاج",
+price:130,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب ميكس لحوم",
+price:125,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب استربس رانش",
+price:120,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب استربس كيري",
+price:125,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب الجامد",
+price:140,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب يوجي",
+price:150,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب العملاق",
+price:150,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب قدورة",
+price:150,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب شوكولاتة",
+price:80,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب شوكولاتة موز",
+price:90,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب شوكولاتة مكسرات",
+price:90,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب أوريو",
+price:90,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب هوهوز",
+price:90,
+image:images.crepe
+},
+
+{
+category:"كريب",
+name:"كريب لوتس",
+price:90,
+image:images.crepe
+},
+
+
+/* ================= DRINKS ================= */
+
+{
+category:"المشروبات",
+name:"كانز",
+price:20,
+image:images.drink
+},
+
+{
+category:"المشروبات",
+name:"لتر كولا",
+price:40,
+image:images.drink
+},
+
+{
+category:"المشروبات",
+name:"مياه معدنية ص",
+price:10,
+image:images.drink
+},
+
+{
+category:"المشروبات",
+name:"مياه معدنية ك",
+price:15,
+image:images.drink
+},
+
+
+/* ================= PIES ================= */
+
+{
+category:"فطاير",
+name:"شوكولاتة",
+price:110,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"شوكولاتة ومكسرات",
+price:125,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"تورتة قدورة",
+price:140,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"بسبوسة وقشطة",
+price:120,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"بسبوسة وكنافة",
+price:130,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"سكر",
+price:30,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"بغاشة",
+price:45,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"موزيكا",
+price:120,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"قشطوطة",
+price:110,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"كنافة",
+price:120,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"بسبوسة",
+price:120,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"كاستر",
+price:90,
+image:images.pie
+},
+
+{
+category:"فطاير",
+name:"مكسرات",
+price:120,
+image:images.pie
+}
+
+];
+
+
+/* ==================================================
+   CART
+================================================== */
+
+let cart=[];
+
+
+/* ==================================================
+   RENDER
+================================================== */
+
+function money(number){
+
+return Number(number).toLocaleString("ar-EG")+" ج.م";
+
+}
+
+
+function renderProducts(category="all"){
+
+const area=document.getElementById("productsArea");
+
+let products=menu;
+
+if(category!=="all"){
+
+products=menu.filter(item=>item.category===category);
+
+}
+
+if(category==="all"){
+
+products=menu.slice(0,10);
+
+}
+
+let title=category==="all"
+? "🔥 الأكثر طلباً"
+: category;
+
+let html=`
+
+<div class="section-header">
+
+<h2 class="section-title">
+<span>🔥</span>
+${title}
+</h2>
+
+</div>
+
+<div class="products">
+
+`;
+
+products.forEach((item,index)=>{
+
+html+=`
+
+<article class="product">
+
+<div class="product-image">
+
+<img
+src="${item.image}"
+alt="${item.name}"
+loading="lazy"
+>
+
+</div>
+
+<div class="product-body">
+
+<div class="product-name">
+${item.name}
+</div>
+
+<div class="product-description">
+أكل قدورة بطعم مميز
+</div>
+
+<div class="product-price">
+${money(item.price)}
+</div>
+
+<button
+class="add-btn"
+onclick="addToCart(${index}, '${category}')"
+>
+🛒 أضف إلى السلة
+</button>
+
+</div>
+
+</article>
+
+`;
+
+});
+
+html+=`</div>`;
+
+area.innerHTML=html;
+
+}
+
+
+/* ==================================================
+   CATEGORY
+================================================== */
+
+function showCategory(category){
+
+document.querySelectorAll(".nav a").forEach(a=>{
+a.classList.remove("active");
+});
+
+event?.target?.classList.add("active");
+
+renderProducts(category);
+
+window.scrollTo({
+top:document.getElementById("productsArea").offsetTop-80,
+behavior:"smooth"
+});
+
+}
+
+
+/* ==================================================
+   ADD TO CART
+================================================== */
+
+function addToCart(index,category){
+
+let products=category==="all"
+? menu.slice(0,10)
+: menu.filter(item=>item.category===category);
+
+let product=products[index];
+
+let found=cart.find(item=>item.name===product.name);
+
+if(found){
+
+found.quantity++;
+
+}else{
+
+cart.push({
+...product,
+quantity:1
+});
+
+}
+
+updateCart();
+
+openCart();
+
+}
+
+
+/* ==================================================
+   UPDATE CART
+================================================== */
+
+function updateCart(){
+
+const count=document.getElementById("cartCount");
+
+count.textContent=cart.reduce(
+(total,item)=>total+item.quantity,
+0
+);
+
+renderCart();
+
+calculateFinalTotal();
+
+}
+
+
+function cartTotal(){
+
+return cart.reduce(
+(total,item)=>total+(item.price*item.quantity),
+0
+);
+
+}
+
+
+/* ==================================================
+   RENDER CART
+================================================== */
+
+function renderCart(){
+
+const box=document.getElementById("cartItems");
+
+if(cart.length===0){
+
+box.innerHTML=`
+
+<div style="
+text-align:center;
+padding:50px 10px;
+color:#aaa;
+">
+
+🛒
+
+<h3 style="margin:15px 0;">
+السلة فاضية
+</h3>
+
+<p>
+اختار أكلك الأول ❤️
+</p>
+
+</div>
+
+`;
+
+document.getElementById("cartTotal").textContent="0 ج.م";
+
+return;
+
+}
+
+
+box.innerHTML="";
+
+cart.forEach((item,index)=>{
+
+const div=document.createElement("div");
+
+div.className="cart-item";
+
+div.innerHTML=`
+
+<div class="cart-item-top">
+
+<div>
+
+<div class="cart-item-name">
+${item.name}
+</div>
+
+<div style="color:#aaa;font-size:12px;margin-top:4px;">
+${money(item.price)}
+</div>
+
+</div>
+
+<div class="cart-item-price">
+${money(item.price*item.quantity)}
+</div>
+
+</div>
+
+
+<div class="cart-controls">
+
+<button
+class="qty-btn"
+onclick="changeQuantity(${index},-1)"
+>
+−
+</button>
+
+<strong>
+${item.quantity}
+</strong>
+
+<button
+class="qty-btn"
+onclick="changeQuantity(${index},1)"
+>
++
+</button>
+
+<button
+class="qty-btn delete-btn"
+onclick="removeFromCart(${index})"
+>
+🗑
+</button>
+
+</div>
+
+`;
+
+box.appendChild(div);
+
+});
+
+
+document.getElementById("cartTotal").textContent=
+money(cartTotal());
+
+}
+
+
+/* ==================================================
+   QUANTITY
+================================================== */
+
+function changeQuantity(index,amount){
+
+cart[index].quantity+=amount;
+
+if(cart[index].quantity<=0){
+
+cart.splice(index,1);
+
+}
+
+updateCart();
+
+}
+
+
+function removeFromCart(index){
+
+cart.splice(index,1);
+
+updateCart();
+
+}
+
+
+/* ==================================================
+   CART OPEN/CLOSE
+================================================== */
+
+function openCart(){
+
+document.getElementById("cartPanel")
+.classList.add("open");
+
+}
+
+function closeCart(){
+
+document.getElementById("cartPanel")
+.classList.remove("open");
+
+}
+
+
+/* ==================================================
+   CHECKOUT
+================================================== */
+
+function openCheckout(){
+
+if(cart.length===0){
+
+alert("السلة فاضية، اختار منتجات الأول.");
+
+return;
+
+}
+
+document
+.getElementById("checkoutModal")
+.classList.add("open");
+
+calculateFinalTotal();
+
+}
+
+
+function closeCheckout(){
+
+document
+.getElementById("checkoutModal")
+.classList.remove("open");
+
+}
+
+
+function calculateFinalTotal(){
+
+const select=document.getElementById("deliveryArea");
+
+if(!select)return;
+
+const fee=
+Number(
+select.options[select.selectedIndex]
+?.dataset.fee || 0
+);
+
+const total=cartTotal()+fee;
+
+document.getElementById("finalTotal")
+.textContent=money(total);
+
+}
+
+
+/* ==================================================
+   SEND WHATSAPP
+================================================== */
+
+function sendOrder(event){
+
+event.preventDefault();
+
+if(cart.length===0){
+
+alert("السلة فاضية.");
+
+return;
+
+}
+
+
+const name=
+document.getElementById("customerName")
+.value.trim();
+
+const phone=
+document.getElementById("customerPhone")
+.value.trim();
+
+const area=
+document.getElementById("deliveryArea")
+.value;
+
+const address=
+document.getElementById("customerAddress")
+.value.trim();
+
+const notes=
+document.getElementById("customerNotes")
+.value.trim();
+
+
+const select=
+document.getElementById("deliveryArea");
+
+const deliveryFee=
+Number(
+select.options[select.selectedIndex]
+.dataset.fee || 0
+);
+
+
+let orderText="";
+
+cart.forEach((item,index)=>{
+
+orderText+=
+`${index+1}. ${item.name} × ${item.quantity} = ${item.price*item.quantity} جنيه\n`;
+
+});
+
+
+const subtotal=cartTotal();
+
+const total=subtotal+deliveryFee;
+
+
+const message=
+
+`🟢 *طلب جديد من موقع قدورة*
+
+━━━━━━━━━━━━━━
+
+👤 *اسم العميل:*
+${name}
+
+📱 *رقم الهاتف:*
+${phone}
+
+📍 *المنطقة:*
+${area}
+
+🏠 *العنوان:*
+${address}
+
+━━━━━━━━━━━━━━
+
+🛒 *تفاصيل الطلب:*
+
+${orderText}
+
+━━━━━━━━━━━━━━
+
+💵 قيمة المنتجات:
+${subtotal} جنيه
+
+🚚 مصاريف التوصيل:
+${deliveryFee} جنيه
+
+💰 *الإجمالي النهائي:*
+${total} جنيه
+
+━━━━━━━━━━━━━━
+
+📝 *ملاحظات:*
+${notes || "لا يوجد"}
+
+`;
+
+if(
+WHATSAPP_NUMBER==="201146027279"
+){
+
+alert(
+"من فضلك ضع رقم واتساب المطعم داخل الكود أولاً."
+);
+
+return;
+
+}
+
+
+const url=
+"https://wa.me/"
++WHATSAPP_NUMBER
++"?text="
++encodeURIComponent(message);
+
+
+window.open(url,"_blank");
+
+
+}
+
+
+/* ==================================================
+   SEARCH
+================================================== */
+
+function openSearch(){
+
+const search=prompt(
+"اكتب اسم الأكلة التي تبحث عنها:"
+);
+
+if(!search)return;
+
+
+const result=
+menu.filter(item=>
+item.name
+.toLowerCase()
+.includes(search.toLowerCase())
+);
+
+
+if(result.length===0){
+
+alert("مش لاقيين الصنف ده 😅");
+
+return;
+
+}
+
+
+const area=
+document.getElementById("productsArea");
+
+
+area.innerHTML=`
+
+<div class="section-header">
+
+<h2 class="section-title">
+🔎 نتائج البحث
+</h2>
+
+</div>
+
+<div class="products">
+
+${result.map(item=>`
+
+<article class="product">
+
+<div class="product-image">
+
+<img
+src="${item.image}"
+alt="${item.name}"
+>
+
+</div>
+
+<div class="product-body">
+
+<div class="product-name">
+${item.name}
+</div>
+
+<div class="product-price">
+${money(item.price)}
+</div>
+
+<button
+class="add-btn"
+onclick="addSearchItem('${item.name.replace(/'/g,"\\'")}')"
+>
+🛒 أضف إلى السلة
+</button>
+
+</div>
+
+</article>
+
+`).join("")}
+
+</div>
+
+`;
+
+}
+
+
+function addSearchItem(name){
+
+const product=
+menu.find(item=>item.name===name);
+
+if(!product)return;
+
+const found=
+cart.find(item=>item.name===product.name);
+
+if(found){
+
+found.quantity++;
+
+}else{
+
+cart.push({
+...product,
+quantity:1
+});
+
+}
+
+updateCart();
+
+openCart();
+
+}
+
+
+/* ==================================================
+   MOBILE MENU
+================================================== */
+
+function toggleMobileMenu(){
+
+const nav=document.getElementById("nav");
+
+if(nav.style.display==="flex"){
+
+nav.style.display="none";
+
+}else{
+
+nav.style.display="flex";
+
+nav.style.position="absolute";
+
+nav.style.top="65px";
+
+nav.style.right="0";
+
+nav.style.left="0";
+
+nav.style.background="#111";
+
+nav.style.flexDirection="column";
+
+nav.style.padding="15px";
+
+nav.style.gap="0";
+
+}
+
+}
+
+
+/* ==================================================
+   START
+================================================== */
+
+renderProducts("all");
+
+updateCart();
+
+</script>
 
 </body>
 </html>

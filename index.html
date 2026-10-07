@@ -3,54 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منيو المطعم</title>
+    <title>مطعم قدورة | Qaddoura Restaurant</title>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: Tahoma, sans-serif; background: #f8f9fa; color: #333; margin: 0; padding: 0; text-align: center; }
-        header { background: #d9534f; color: white; padding: 20px; font-size: 24px; font-weight: bold; position: relative; }
+        body { 
+            font-family: 'Tahoma', sans-serif; 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600') no-repeat center center fixed;
+            background-size: cover;
+            color: #333; 
+            margin: 0; 
+            padding: 0; 
+            text-align: center; 
+        }
+        header { 
+            background: rgba(217, 83, 79, 0.95); 
+            color: white; 
+            padding: 20px; 
+            font-size: 26px; 
+            font-weight: bold; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
         .container { max-width: 800px; margin: 20px auto; padding: 10px; }
         
         /* الأقسام الرئيسية */
         .main-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .main-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s; border-bottom: 4px solid #d9534f; }
-        .main-card:hover { transform: translateY(-5px); background: #fff5f5; }
+        .main-card { 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 25px 15px; 
+            border-radius: 12px; 
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3); 
+            cursor: pointer; 
+            transition: 0.3s; 
+            border-bottom: 4px solid #d9534f; 
+        }
+        .main-card:hover { transform: translateY(-5px); background: #ffffff; }
         .main-card h3 { margin: 0; color: #333; font-size: 18px; }
 
         /* الأقسام الداخلية */
-        .category-section { display: none; background: white; margin: 15px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: right; }
-        .category-section h2 { color: #d9534f; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 5px; display: flex; justify-content: space-between; align-items: center; }
-        .back-btn { background: #6c757d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .category-section { display: none; background: rgba(255, 255, 255, 0.96); margin: 15px 0; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); text-align: right; }
+        .category-section h2 { color: #d9534f; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-top: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .back-btn { background: #6c757d; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 14px; }
         .back-btn:hover { background: #5a6268; }
 
-        .sub-category { margin: 15px 0 5px 0; font-weight: bold; color: #444; background: #f1f1f1; padding: 6px 10px; border-radius: 4px; }
+        .sub-category { margin: 15px 0 8px 0; font-weight: bold; color: #444; background: #f1f1f1; padding: 8px 12px; border-radius: 6px; }
         
         /* الأصناف والصور */
-        .item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #ddd; }
+        .item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #ddd; }
         .item:last-child { border-bottom: none; }
         .item-info { display: flex; align-items: center; gap: 12px; }
-        .item-img { width: 55px; height: 55px; border-radius: 6px; object-fit: cover; background: #ddd; }
+        .item-img { width: 65px; height: 65px; border-radius: 8px; object-fit: cover; background: #ddd; border: 1px solid #ccc; }
         .item-details h4 { margin: 0 0 5px 0; font-size: 16px; color: #222; }
         .price { color: #27ae60; font-weight: bold; font-size: 15px; }
         
         .btn-add { background: #27ae60; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 14px; }
         .btn-add:hover { background: #219653; }
 
-        /* سلة المشتريات العائمة */
-        .cart-box { position: fixed; bottom: 0; left: 0; right: 0; background: #222; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -4px 10px rgba(0,0,0,0.2); z-index: 1000; }
+        /* شريط سلة المشتريات العائم */
+        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(34, 34, 34, 0.95); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -4px 15px rgba(0,0,0,0.4); z-index: 1000; backdrop-filter: blur(5px); }
         .cart-info { font-size: 16px; font-weight: bold; }
-        .btn-checkout { background: #25d366; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        .btn-checkout:hover { background: #1ebe5d; }
+        .btn-open-cart { background: #f39c12; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: bold; }
+        .btn-open-cart:hover { background: #e67e22; }
+
+        /* نافذة السلة وتأكيد البيانات (Modal) */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); overflow: auto; }
+        .modal-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 12px; width: 90%; max-width: 500px; text-align: right; box-shadow: 0 5px 20px rgba(0,0,0,0.4); }
+        .modal-content h3 { color: #d9534f; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+        .form-group { margin: 12px 0; text-align: right; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; color: #444; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+        .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-submit { background: #25d366; color: white; border: none; padding: 12px; flex: 1; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .btn-submit:hover { background: #1ebe5d; }
+        .btn-close { background: #dc3545; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 16px; cursor: pointer; }
+        .btn-close:hover { background: #c82333; }
+        .remove-item { color: #dc3545; cursor: pointer; font-weight: bold; margin-right: 10px; }
     </style>
 </head>
 <body>
 
-    <header>🍽️️ مطعم قدورة 🍽️</header>
+    <header>🍽 مطعم قدورة 🍽️</header>
 
     <div class="container">
 
-        <!-- الشاشة الرئيسية: الأقسام الأربعة -->
+        <!-- الشاشة الرئيسية -->
         <div id="homeScreen">
-            <h2 style="color: #555; margin-bottom: 20px;">اختر القسم المطلوب</h2>
+            <h2 style="color: #fff; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">اختر القسم المطلوب</h2>
             <div class="main-categories">
                 <div class="main-card" onclick="openCategory('koshary')">
                     <h3>🍜 الكشري</h3>
@@ -74,51 +112,36 @@
             <div class="sub-category">علب الكشري</div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=100" class="item-img" alt="كشري">
-                    <div class="item-details">
-                        <h4>علبة كشري</h4>
-                        <span class="price">20 جنيه</span>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=150" class="item-img" alt="كشري">
+                    <div class="item-details"><h4>علبة كشري</h4><span class="price">20 جنيه</span></div>
                 </div>
-                <button class="btn-add" onclick="addToCart('علبة كشري', 20)">إضافة للسلة</button>
+                <button class="btn-add" onclick="addToCart('علبة كشري (20ج)', 20)">إضافة للسلة</button>
             </div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=100" class="item-img" alt="كشري">
-                    <div class="item-details">
-                        <h4>علبة كشري</h4>
-                        <span class="price">25 جنيه</span>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=150" class="item-img" alt="كشري">
+                    <div class="item-details"><h4>علبة كشري</h4><span class="price">25 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('علبة كشري (25ج)', 25)">إضافة للسلة</button>
             </div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=100" class="item-img" alt="كشري">
-                    <div class="item-details">
-                        <h4>علبة كشري</h4>
-                        <span class="price">30 جنيه</span>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=150" class="item-img" alt="كشري">
+                    <div class="item-details"><h4>علبة كشري</h4><span class="price">30 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('علبة كشري (30ج)', 30)">إضافة للسلة</button>
             </div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=100" class="item-img" alt="كشري">
-                    <div class="item-details">
-                        <h4>علبة كشري</h4>
-                        <span class="price">40 جنيه</span>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=150" class="item-img" alt="كشري">
+                    <div class="item-details"><h4>علبة كشري</h4><span class="price">40 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('علبة كشري (40ج)', 40)">إضافة للسلة</button>
             </div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=100" class="item-img" alt="كشري">
-                    <div class="item-details">
-                        <h4>علبة كشري</h4>
-                        <span class="price">50 جنيه</span>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=150" class="item-img" alt="كشري">
+                    <div class="item-details"><h4>علبة كشري</h4><span class="price">50 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('علبة كشري (50ج)', 50)">إضافة للسلة</button>
             </div>
@@ -126,21 +149,15 @@
             <div class="sub-category">الحلو</div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=100" class="item-img" alt="رز بلبن">
-                    <div class="item-details">
-                        <h4>رز بلبن عادى</h4>
-                        <span class="price">15 جنيه</span>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=150" class="item-img" alt="رز بلبن">
+                    <div class="item-details"><h4>رز بلبن عادى</h4><span class="price">15 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('رز بلبن عادى', 15)">إضافة للسلة</button>
             </div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=100" class="item-img" alt="رز بلبن فرن">
-                    <div class="item-details">
-                        <h4>رز بلبن فرن</h4>
-                        <span class="price">20 جنيه</span>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=150" class="item-img" alt="رز بلبن فرن">
+                    <div class="item-details"><h4>رز بلبن فرن</h4><span class="price">20 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('رز بلبن فرن', 20)">إضافة للسلة</button>
             </div>
@@ -165,28 +182,28 @@
             <h2>🍲 قسم الطواجن <button class="back-btn" onclick="goHome()">رجوع للأقسام</button></h2>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=100" class="item-img" alt="طاجن">
+                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=150" class="item-img" alt="طاجن">
                     <div class="item-details"><h4>طاجن فراخ</h4><span class="price">50 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('طاجن فراخ', 50)">إضافة للسلة</button>
             </div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=100" class="item-img" alt="طاجن">
+                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=150" class="item-img" alt="طاجن">
                     <div class="item-details"><h4>طاجن لحمه</h4><span class="price">45 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('طاجن لحمه', 45)">إضافة للسلة</button>
             </div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=100" class="item-img" alt="طاجن">
+                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=150" class="item-img" alt="طاجن">
                     <div class="item-details"><h4>طاجن موزاريلا فراخ</h4><span class="price">75 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('طاجن موزاريلا فراخ', 75)">إضافة للسلة</button>
             </div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=100" class="item-img" alt="طاجن">
+                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=150" class="item-img" alt="طاجن">
                     <div class="item-details"><h4>طاجن موزاريلا لحمه</h4><span class="price">70 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('طاجن موزاريلا لحمه', 70)">إضافة للسلة</button>
@@ -200,7 +217,7 @@
             <div class="sub-category">كريب فراخ</div>
             <div class="item">
                 <div class="item-info">
-                    <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=100" class="item-img" alt="كريب">
+                    <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=150" class="item-img" alt="كريب">
                     <div class="item-details"><h4>بانيه</h4><span class="price">80 جنيه</span></div>
                 </div>
                 <button class="btn-add" onclick="addToCart('كريب بانيه', 80)">إضافة للسلة</button>
@@ -255,7 +272,7 @@
             <div class="item"><div class="item-info"><div class="item-details"><h4>رومي</h4><span class="price">80 جنيه</span></div></div><button class="btn-add" onclick="addToCart('كريب رومي', 80)">إضافة للسلة</button></div>
         </div>
 
-        <!-- 4. قسم البيتزا والفطائر (مبدئي لحد ما تبعت أصنافهم) -->
+        <!-- 4. قسم البيتزا والفطائر -->
         <div id="other" class="category-section">
             <h2>🍕 البيتزا والفطائر <button class="back-btn" onclick="goHome()">رجوع للأقسام</button></h2>
             <p style="color: #666; padding: 20px;">قريباً سيتم إضافة أصناف البيتزا والفطائر هنا بناءً على طلبك!</p>
@@ -264,69 +281,21 @@
     </div>
 
     <!-- شريط سلة المشتريات العائم -->
-    <div class="cart-box">
+    <div class="cart-bar">
         <div class="cart-info" id="cartSummary">السلة فارغة (0 أصناف) - 0 جنيه</div>
-        <button class="btn-checkout" onclick="checkoutWhatsApp()">إرسال الطلب للواتساب 📲</button>
+        <button class="btn-open-cart" onclick="openCartModal()">🛒 فتح السلة وإتمام الطلب</button>
     </div>
 
-    <script>
-        let cart = [];
-
-        function openCategory(catId) {
-            document.getElementById('homeScreen').style.display = 'none';
-            let sections = document.querySelectorAll('.category-section');
-            sections.forEach(sec => sec.style.display = 'none');
-            document.getElementById(catId).style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function goHome() {
-            let sections = document.querySelectorAll('.category-section');
-            sections.forEach(sec => sec.style.display = 'none');
-            document.getElementById('homeScreen').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function addToCart(name, price) {
-            cart.push({ name: name, price: price });
-            updateCartUI();
+    <!-- نافذة السلة والبيانات المنبثقة -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <h3>🛒 سلة المشتريات وتفاصيل التوصيل</h3>
+            <div id="cartItemsList" style="max-height: 150px; overflow-y: auto; margin-bottom: 15px;">
+                <p style="color: #777; text-align: center;">السلة فارغة حالياً</p>
+            </div>
+            <div style="font-weight: bold; text-align: left; margin-bottom: 15px; font-size: 16px;" id="modalTotalPrice">الإجمالي: 0 جنيه</div>
             
-            // تأثير بصري بسيط عند الإضافة
-            event.target.innerText = "تمت الإضافة ✓";
-            event.target.style.background = "#d9534f";
-            setTimeout(() => {
-                event.target.innerText = "إضافة للسلة";
-                event.target.style.background = "#27ae60";
-            }, 1000);
-        }
-
-        function updateCartUI() {
-            let totalCount = cart.length;
-            let totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
-            document.getElementById('cartSummary').innerText = `المجموع: ${totalCount} أصناف (${totalPrice} جنيه)`;
-        }
-
-        function checkoutWhatsApp() {
-            if (cart.length === 0) {
-                alert("السلة فارغة، اختر بعض الأصناف أولاً!");
-                return;
-            }
-
-            let phone = "201146027279";
-            let message = "مرحباً، أود طلب الأوريجن التالية:%0a";
-            let totalPrice = 0;
-
-            cart.forEach((item, index) => {
-                message += `${index + 1}. ${item.name} - ${item.price} جنيه%0a`;
-                totalPrice += item.price;
-            });
-
-            message += `%0a💰 الإجمالي الكلي: ${totalPrice} جنيه`;
-
-            let url = `https://wa.me/${phone}?text=` + message;
-            window.open(url, '_blank');
-        }
-    </script>
-
-</body>
-</html>
+            <div class="form-group">
+                <label>👤 اسم العميل:</label>
+                <input type="text" id="custName" placeholder="اكتب اسمك الكريم هنا">
+            <
